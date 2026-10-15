@@ -84,7 +84,7 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 /* ---------- bio ---------- */
 .bio{padding:clamp(96px,13vw,200px) var(--m);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
 .bio figure{position:relative;aspect-ratio:4/5;overflow:hidden}
-.bio figure img{width:100%;height:115%;object-fit:cover}
+.bio figure img{width:100%;height:115%;object-fit:cover;object-position:50% 0%}
 .bio .text h2{margin-bottom:32px}
 .bio .text p{font-size:var(--lead);line-height:1.4;max-width:30ch}
 .bio .text p + p{margin-top:.9em}
@@ -399,7 +399,7 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     last=y;
     if(!reduce){
       if(y<window.innerHeight) hero.style.translate='0 '+(y*0.3)+'px';
-      par.forEach(function(el){var r=el.parentNode.getBoundingClientRect();el.style.translate='0 '+(-(r.top/window.innerHeight)*40-40)+'px'});
+      par.forEach(function(el){var r=el.parentNode.getBoundingClientRect();el.style.translate='0 '+Math.min(0,-(r.top/window.innerHeight)*40)+'px'});
     }
     ticking=false;
   }
