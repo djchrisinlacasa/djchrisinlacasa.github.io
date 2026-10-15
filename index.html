@@ -99,6 +99,7 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 .next{font-size:var(--lead);font-weight:500}
 .next strong{color:var(--accent)}
 .show{display:grid;grid-template-columns:150px 1fr 1fr auto;align-items:center;gap:24px;padding:28px 0;position:relative;text-decoration:none}
+div.show::before{display:none}
 .show + .show{box-shadow:0 -2px 0 #26221b}
 .show::before{content:"";position:absolute;inset:0 calc(var(--m) * -1);background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease);z-index:0}
 .show > *{position:relative;z-index:1;transition:color .3s}
@@ -270,13 +271,29 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       <a class="show rise" data-date="2026-10-23" href="https://salaelsotano.com" target="_blank" rel="noopener">
         <span class="date">23.10<small>Viernes · 2026</small></span>
         <span class="what">Tormenta</span>
-        <span class="where">El Sótano · C/ Las Maldonadas, 6 · Madrid · Residencia</span>
+        <span class="where">El Sótano · C/ Las Maldonadas, 6 · Madrid</span>
         <span class="tix">Entradas</span>
         <span class="lineup">Con Irene Gutierrez, Loopita, Vico Deep y Yannik</span>
       </a>
-      <a class="show rise" data-date="2026-12-15" href="https://salaelsotano.com" target="_blank" rel="noopener">
-        <span class="date">15.12<small>Martes · 2026</small></span>
-        <span class="what">Tormenta</span>
+      <div class="show rise" data-date="2026-10-30">
+        <span class="date">30.10<small>Viernes · 2026</small></span>
+        <span class="what">Medias Puri</span>
+        <span class="where">Madrid · Residencia</span>
+      </div>
+      <div class="show rise" data-date="2026-10-31">
+        <span class="date">31.10<small>Sábado · 2026</small></span>
+        <span class="what">Medias Puri</span>
+        <span class="where">Madrid · Residencia</span>
+      </div>
+      <a class="show rise" data-date="2026-12-05" href="https://salaelsotano.com" target="_blank" rel="noopener">
+        <span class="date">05.12<small>Sábado · 2026</small></span>
+        <span class="what">El Sótano</span>
+        <span class="where">C/ Las Maldonadas, 6 · Madrid · Residencia</span>
+        <span class="tix">Entradas</span>
+      </a>
+      <a class="show rise" data-date="2026-12-31" href="https://salaelsotano.com" target="_blank" rel="noopener">
+        <span class="date">31.12<small>Jueves · 2026</small></span>
+        <span class="what">Nochevieja</span>
         <span class="where">El Sótano · Madrid</span>
         <span class="tix">Entradas</span>
       </a>
