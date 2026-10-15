@@ -166,12 +166,14 @@ div.show::before{display:none}
 @media (max-width:600px){.hero{padding-bottom:30px}.hero .top-socials{justify-content:center;margin:30px 0 0;gap:18px}.hero .top-socials svg{width:28px;height:28px}.socials{gap:8px;justify-content:space-evenly;padding:28px 8px}.socials svg{width:30px;height:30px}.socials li:nth-child(5) svg{width:38px}}
 
 
-.hero .top-socials{background:none;margin:22px 0 0 -10px;padding:0;justify-content:flex-start;gap:clamp(10px,2.4vw,26px);opacity:0;transition:opacity .8s var(--ease) .7s}
+.hero .top-socials{background:none;margin:30px auto 0;padding:0;justify-content:center;gap:clamp(10px,3.8vw,26px);opacity:0;transition:opacity .8s var(--ease) .7s}
 .ready .hero .top-socials{opacity:1}
 .hero .top-socials svg{width:30px;height:30px}
 .hero .top-socials li:nth-child(5) svg{width:38px}
 .hero .top-socials a{color:var(--ink)}
 .hero .top-socials a:hover{color:var(--accent)}
+@media (min-width:821px){.hero .top-socials{justify-content:flex-start;margin:22px 0 0 -10px}}
+@media (max-width:370px){.hero .top-socials svg{width:25px;height:25px}.hero .top-socials li:nth-child(5) svg{width:33px}}
 
 /* ---------- música ---------- */
 .music{padding:clamp(96px,12vw,180px) var(--m);display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,80px);align-items:start}
