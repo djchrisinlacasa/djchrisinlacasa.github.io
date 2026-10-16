@@ -270,12 +270,12 @@ div.show::before{display:none}
 .acover img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.2s var(--ease),filter .4s}
 .js .acover.in img,.acover:not(.reveal) img{transform:scale(1)}
 .acover:hover img{transform:scale(1.04);filter:brightness(1.1)}
-.acover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,.85) 0%,rgba(12,11,9,0) 45%);pointer-events:none}
-.acover-info{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.acover-n{font-weight:700;font-size:clamp(1.25rem,1rem + 1.2vw,2rem);letter-spacing:-.02em}
-.acover-go{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:16px;transition:transform .16s var(--ease)}
-.acover:active .acover-go{transform:scale(.96)}
-.acover:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.album-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.album-link{padding:0;border:0;background:none;font:inherit;letter-spacing:inherit;line-height:inherit;color:var(--accent);cursor:pointer;text-align:left;background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:0 96%;background-size:0 .08em;transition:background-size .5s var(--ease)}
+.album-link:hover{background-size:100% .08em}
+.album-link:active{transform:scale(.98)}
+.album-link:focus-visible,.acover:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.album-n{font-size:var(--small);font-weight:500;letter-spacing:0;color:var(--muted)}
 @media (min-width:821px){.acover{aspect-ratio:16/8}}
 
 /* visor a pantalla completa */
@@ -552,12 +552,11 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   </section>
 
   <section class="gallery" id="album" aria-labelledby="album-t">
-    <h2 id="album-t" class="rise">Álbum</h2>
-    <button class="acover reveal" type="button" id="albumOpen" aria-label="Abrir el álbum de fotos">
+    <h2 id="album-t" class="album-h rise"><button type="button" class="album-link" id="albumTitle">Ver álbum</button><span class="album-n" id="albumN">16 fotos</span></h2>
+    <button class="acover reveal" type="button" id="albumOpen" aria-label="Abrir el álbum de fotos" tabindex="-1">
       <span class="acover-a"><img src="fotos/cabina-sonrisa.jpg" alt="" width="1048" height="1600" loading="lazy"></span>
       <span class="acover-b"><img src="fotos/tormenta-rojo.jpg" alt="" width="1320" height="882" loading="lazy"></span>
       <span class="acover-c"><img src="fotos/amigas.jpg" alt="" width="1320" height="880" loading="lazy"></span>
-      <span class="acover-info"><span class="acover-n" id="albumN">16 fotos</span><span class="acover-go">Ver álbum</span></span>
     </button>
     <template id="albumFotos">
       <img src="fotos/cabina-sonrisa.jpg" alt="Chris sonriendo en la cabina con los cascos puestos" width="1048" height="1600">
@@ -724,6 +723,8 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     function back(){var k=cur();view.hidden=true;thumbs[k].focus();thumbs[k].scrollIntoView({block:'nearest'})}
     function open(){thumbs.forEach(function(b){ld(b.firstChild)});view.hidden=true;grid.scrollTop=0;document.documentElement.classList.add('lb-open');lb.showModal();thumbs[0].focus()}
     btn.addEventListener('click',open);
+    var ttl=document.getElementById('albumTitle'); if(ttl) ttl.addEventListener('click',function(){btn=ttl;open()});
+    btn.addEventListener('click',function(){btn=document.getElementById('albumOpen')});
     document.getElementById('lbClose').addEventListener('click',function(){lb.close()});
     document.getElementById('lbClose2').addEventListener('click',function(){lb.close()});
     document.getElementById('lbBack').addEventListener('click',back);
