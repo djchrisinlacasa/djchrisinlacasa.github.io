@@ -177,7 +177,7 @@ div.show::before{display:none}
 
 
 /* ---------- botón de sonido ---------- */
-.sound{position:absolute;right:var(--m);top:var(--m);z-index:2;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 18px;border:0;background:rgba(12,11,9,.72);color:var(--ink);font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:background-color .2s,color .2s,transform .16s var(--ease)}
+.sound{position:absolute;right:var(--m);top:var(--m);z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:0;border-radius:999px;background:rgba(12,11,9,.72);color:var(--ink);font:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:background-color .2s,color .2s,transform .16s var(--ease)}
 .sound:hover{background:var(--accent);color:var(--accent-ink)}
 .sound:active{transform:scale(.96)}
 .sound .ic-on{display:none}
@@ -195,7 +195,7 @@ div.show::before{display:none}
 .mcard:hover img{filter:brightness(1.12)}
 .mt{display:block;font-weight:700;font-size:var(--lead);line-height:1.2;margin:18px 18px 4px}
 .ms{display:block;color:var(--muted);font-size:var(--small);margin:0 18px}
-@media (max-width:820px){.track-music{grid-auto-columns:72%;margin:0 calc(var(--m) * -1);padding:0 var(--m);scroll-padding:0 var(--m)}.sound{padding:0 14px;font-size:14px}}
+@media (max-width:820px){.track-music{grid-auto-columns:72%;margin:0 calc(var(--m) * -1);padding:0 var(--m);scroll-padding:0 var(--m)}.sound{padding:0 11px;font-size:12px}}
 
 /* ---------- música ---------- */
 .music{padding:clamp(96px,12vw,180px) var(--m);display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,80px);align-items:start}
@@ -299,7 +299,6 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <li class="opt"><a href="#bio">Bio</a></li>
     <li><a href="#fechas">Fechas</a></li>
     <li class="opt"><a href="#sets">Sets</a></li>
-    <li class="opt"><a href="#music">Music</a></li>
     <li class="opt"><a href="#musica">Música</a></li>
     <li><a href="#booking">Booking</a></li>
   </ul>
@@ -386,7 +385,7 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
   <section class="lovehouse" aria-label="Love house">
     <video src="videos/lovehouse.mp4" poster="videos/lovehouse.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <button type="button" class="sound" id="soundBtn" aria-pressed="false"><svg class="ic-off" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ic-on" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Activar sonido</span></button>
+    <button type="button" class="sound" id="soundBtn" aria-pressed="false"><svg class="ic-off" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ic-on" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Activar sonido</span></button>
     <p class="rise">House music.</p>
   </section>
 
@@ -410,23 +409,6 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         <span class="yt-title">DJ Chris in la Casa</span>
         <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
       </button>
-    </div>
-  </section>
-
-  <section class="mus" id="music" aria-labelledby="music-t">
-    <div class="sets-head">
-      <h2 id="music-t" class="rise">Music</h2>
-      <div class="arrows">
-        <button type="button" class="arr" data-target="trackMusic" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button type="button" class="arr" data-target="trackMusic" data-dir="1" aria-label="Siguiente"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      </div>
-    </div>
-    <div class="track-music" id="trackMusic">
-        <a class="mcard rise" href="https://www.youtube.com/watch?v=DWA_bKrltYg" target="_blank" rel="noopener"><img src="fotos/cover-ibiza.jpg" alt="" width="720" height="720" loading="lazy"><span class="mt">Ibiza Global Radio</span><span class="ms">Set en YouTube</span></a>
-        <a class="mcard rise" href="https://www.youtube.com/watch?v=PV6GmPca9F0" target="_blank" rel="noopener"><img src="fotos/cover-live.jpg" alt="" width="720" height="720" loading="lazy"><span class="mt">DJ Chris in la Casa</span><span class="ms">Live set en YouTube</span></a>
-        <a class="mcard rise" href="https://soundcloud.com/djchrisinlacasa" target="_blank" rel="noopener"><img src="fotos/cover-soundcloud.jpg" alt="" width="720" height="720" loading="lazy"><span class="mt">Sets y mezclas</span><span class="ms">SoundCloud</span></a>
-        <a class="mcard rise" href="https://open.spotify.com/search/DJ%20Chris%20in%20la%20Casa" target="_blank" rel="noopener"><img src="fotos/cover-spotify.jpg" alt="" width="720" height="720" loading="lazy"><span class="mt">DJ Chris in la Casa</span><span class="ms">Spotify</span></a>
-        <a class="mcard rise" href="https://salaelsotano.com" target="_blank" rel="noopener"><img src="fotos/cover-tormenta.jpg" alt="" width="720" height="720" loading="lazy"><span class="mt">Tormenta · El Sótano</span><span class="ms">Residencia</span></a>
     </div>
   </section>
 
