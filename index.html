@@ -264,18 +264,19 @@ div.show::before{display:none}
 .grid figcaption{position:absolute;left:16px;bottom:14px;font-size:var(--small);font-weight:500;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 
 /* ---------- álbum ---------- */
-.album{padding:clamp(72px,9vw,140px) var(--m) 0}
-.album-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:28px}
-.album-head h3{font-size:clamp(1.75rem,1.2rem + 2.4vw,3.25rem);font-weight:700;letter-spacing:-.03em;line-height:1}
-.album-head p{color:var(--muted);font-size:var(--small)}
-.album-cols{columns:2;column-gap:6px}
-@media (min-width:821px){.album-cols{columns:3;column-gap:8px}}
-.ph{display:block;width:100%;margin:0 0 6px;break-inside:avoid;padding:0;border:0;background:var(--surface);cursor:zoom-in;overflow:hidden;position:relative}
-.ph img{width:100%;height:auto;transition:transform .8s var(--ease),filter .3s}
-.ph:hover img{transform:scale(1.03);filter:brightness(1.12)}
-.ph:focus-visible,.grid figure:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.grid figure{cursor:zoom-in}
-.album-all{margin-top:24px;width:100%}
+.acover{display:grid;grid-template-columns:3fr 2fr;grid-template-rows:1fr 1fr;gap:6px;width:calc(100% - 2 * var(--m));margin:0 var(--m);aspect-ratio:5/4;max-height:80svh;padding:0;border:0;background:none;cursor:pointer;position:relative;text-align:left;font:inherit;color:#fff}
+.acover > span:not(.acover-info){overflow:hidden;background:var(--surface)}
+.acover-a{grid-row:1 / 3}
+.acover img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.2s var(--ease),filter .4s}
+.js .acover.in img,.acover:not(.reveal) img{transform:scale(1)}
+.acover:hover img{transform:scale(1.04);filter:brightness(1.1)}
+.acover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,.85) 0%,rgba(12,11,9,0) 45%);pointer-events:none}
+.acover-info{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.acover-n{font-weight:700;font-size:clamp(1.25rem,1rem + 1.2vw,2rem);letter-spacing:-.02em}
+.acover-go{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:16px;transition:transform .16s var(--ease)}
+.acover:active .acover-go{transform:scale(.96)}
+.acover:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+@media (min-width:821px){.acover{aspect-ratio:16/8}}
 
 /* visor a pantalla completa */
 html.lb-open{overflow:hidden}
@@ -295,6 +296,17 @@ html.lb-open{overflow:hidden}
 .lb-btn:hover{background:var(--accent);color:var(--accent-ink)}
 .lb-btn:active{transform:scale(.94)}
 .lb-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lb-grid{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:68px var(--m) max(24px,env(safe-area-inset-bottom))}
+.lb-grid ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+@media (min-width:821px){.lb-grid ul{grid-template-columns:repeat(4,1fr);gap:8px}}
+.lb-grid button{display:block;width:100%;aspect-ratio:1;padding:0;border:0;background:var(--surface);cursor:zoom-in;overflow:hidden}
+.lb-grid img{width:100%;height:100%;object-fit:cover;transition:filter .3s}
+.lb-grid button:hover img{filter:brightness(1.15)}
+.lb-grid button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.lb-head{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:10px var(--m);background:rgba(12,11,9,.92)}
+.lb-head h2{font-size:20px;letter-spacing:-.02em}
+.lb-view{position:absolute;inset:0;background:#0c0b09;z-index:3}
+.lb-view[hidden],.lb-grid[hidden]{display:none}
 .lb-cap{flex:1;text-align:center;font-size:var(--small);color:var(--muted);padding:0 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* revelado de fotos: una cortina que se abre */
@@ -539,32 +551,32 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     </div>
   </section>
 
-  <section class="gallery" aria-labelledby="galeria-t">
-    <h2 id="galeria-t" class="rise">La noche</h2>
-    <div class="grid">
-      <figure class="g1 reveal"><img src="fotos/tormenta-escenario.jpg" alt="Chris a contraluz en la cabina de Tormenta con el público delante" width="1800" height="1200" loading="lazy"><figcaption>Tormenta · El Sótano</figcaption></figure>
-      <figure class="g2 reveal"><img src="fotos/tormenta-vertical.jpg" alt="La pista llena frente a la cabina con el neón de Tormenta" width="1200" height="1800" loading="lazy"></figure>
-      <figure class="g3 reveal"><img src="fotos/pista.jpg" alt="El público bailando visto desde la cabina, con luz roja" width="1350" height="1800" loading="lazy"></figure>
-      <figure class="g4 reveal"><img src="fotos/el-sotano.jpg" alt="Chris con los brazos abiertos en la cabina de El Sótano" width="1800" height="1200" loading="lazy"><figcaption>El Sótano · Madrid</figcaption></figure>
-      <figure class="g5 reveal"><img src="fotos/manos.jpg" alt="Manos en alto en la pista con luces moradas" width="1200" height="1800" loading="lazy"></figure>
-      <figure class="g6 reveal"><img src="fotos/cola.jpg" alt="Gente haciendo cola en la puerta de El Sótano" width="1200" height="1800" loading="lazy"></figure>
-      <figure class="g7 reveal"><img src="fotos/movil.jpg" alt="Alguien grabando la cabina con el móvil" width="1200" height="1800" loading="lazy"></figure>
-    </div>
-    <div class="album" id="album">
-      <div class="album-head"><h3 class="rise">Álbum</h3><p id="albumCount"></p></div>
-      <div class="album-cols">
-        <button class="ph rise" type="button"><img src="fotos/cabina-sonrisa.jpg" alt="Chris sonriendo en la cabina con los cascos puestos" width="1048" height="1600" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/tormenta-cabina.jpg" alt="Chris pinchando bajo el neón de Tormenta, con la pista bailando delante" width="1320" height="885" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/cabina-ke.jpg" alt="Chris en cabina con otros dos DJs, uno con el puño en alto" width="1320" height="876" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/pista-morada.jpg" alt="Gente bailando y señalando a la cabina con luz morada" width="1078" height="1600" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/tormenta-azul.jpg" alt="La cabina de El Sótano con el neón de Tormenta y luz azul" width="1078" height="1600" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/amigas.jpg" alt="Un grupo de amigas posando y riendo en la fiesta" width="1320" height="880" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/tormenta-rojo.jpg" alt="La pista llena mirando a la cabina de Tormenta, con focos rojos" width="1320" height="882" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/amigos.jpg" alt="Chris posando con dos amigos bajo el neón de Tormenta" width="1320" height="875" loading="lazy"></button>
-        <button class="ph rise" type="button"><img src="fotos/tormenta-pista.jpg" alt="El público de Tormenta bailando entre haces de luz roja y azul" width="1320" height="900" loading="lazy"></button>
-      </div>
-      <button class="btn ghost album-all" type="button" id="albumAll">Ver todas las fotos</button>
-    </div>
+  <section class="gallery" id="album" aria-labelledby="album-t">
+    <h2 id="album-t" class="rise">Álbum</h2>
+    <button class="acover reveal" type="button" id="albumOpen" aria-label="Abrir el álbum de fotos">
+      <span class="acover-a"><img src="fotos/cabina-sonrisa.jpg" alt="" width="1048" height="1600" loading="lazy"></span>
+      <span class="acover-b"><img src="fotos/tormenta-rojo.jpg" alt="" width="1320" height="882" loading="lazy"></span>
+      <span class="acover-c"><img src="fotos/amigas.jpg" alt="" width="1320" height="880" loading="lazy"></span>
+      <span class="acover-info"><span class="acover-n" id="albumN">16 fotos</span><span class="acover-go">Ver álbum</span></span>
+    </button>
+    <template id="albumFotos">
+      <img src="fotos/cabina-sonrisa.jpg" alt="Chris sonriendo en la cabina con los cascos puestos" width="1048" height="1600">
+      <img src="fotos/tormenta-escenario.jpg" alt="Chris a contraluz en la cabina de Tormenta con el público delante" width="1800" height="1200">
+      <img src="fotos/tormenta-cabina.jpg" alt="Chris pinchando bajo el neón de Tormenta, con la pista bailando delante" width="1320" height="885">
+      <img src="fotos/pista-morada.jpg" alt="Gente bailando y señalando a la cabina con luz morada" width="1078" height="1600">
+      <img src="fotos/el-sotano.jpg" alt="Chris con los brazos abiertos en la cabina de El Sótano" width="1800" height="1200">
+      <img src="fotos/cabina-ke.jpg" alt="Chris en cabina con otros dos DJs, uno con el puño en alto" width="1320" height="876">
+      <img src="fotos/tormenta-azul.jpg" alt="La cabina de El Sótano con el neón de Tormenta y luz azul" width="1078" height="1600">
+      <img src="fotos/amigas.jpg" alt="Un grupo de amigas posando y riendo en la fiesta" width="1320" height="880">
+      <img src="fotos/tormenta-vertical.jpg" alt="La pista llena frente a la cabina con el neón de Tormenta" width="1200" height="1800">
+      <img src="fotos/pista.jpg" alt="El público bailando visto desde la cabina, con luz roja" width="1350" height="1800">
+      <img src="fotos/tormenta-rojo.jpg" alt="La pista llena mirando a la cabina de Tormenta, con focos rojos" width="1320" height="882">
+      <img src="fotos/amigos.jpg" alt="Chris posando con dos amigos bajo el neón de Tormenta" width="1320" height="875">
+      <img src="fotos/manos.jpg" alt="Manos en alto en la pista con luces moradas" width="1200" height="1800">
+      <img src="fotos/tormenta-pista.jpg" alt="El público de Tormenta bailando entre haces de luz roja y azul" width="1320" height="900">
+      <img src="fotos/cola.jpg" alt="Gente haciendo cola en la puerta de El Sótano" width="1200" height="1800">
+      <img src="fotos/movil.jpg" alt="Alguien grabando la cabina con el móvil" width="1200" height="1800">
+    </template>
   </section>
 
   <section class="booking" id="booking" aria-labelledby="booking-t">
@@ -586,10 +598,14 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <small><span>© DJ Chris in la Casa</span><span>Fotos: Tormenta en El Sótano, Madrid</span></small>
 </footer>
 
-<dialog class="lb" id="lb" aria-label="Álbum de fotos">
-  <div class="lb-track" id="lbTrack"></div>
-  <div class="lb-bar lb-top"><span class="lb-count" id="lbCount" aria-live="polite"></span><button class="lb-btn" type="button" id="lbClose" aria-label="Cerrar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <div class="lb-bar lb-bot"><button class="lb-btn" type="button" id="lbPrev" aria-label="Foto anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="lb-cap" id="lbCap"></span><button class="lb-btn" type="button" id="lbNext" aria-label="Foto siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+<dialog class="lb" id="lb" aria-labelledby="lbTitle">
+  <div class="lb-head"><h2 id="lbTitle">Álbum</h2><button class="lb-btn" type="button" id="lbClose" aria-label="Cerrar el álbum"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="lb-grid" id="lbGrid"><ul id="lbList"></ul></div>
+  <div class="lb-view" id="lbView" hidden>
+    <div class="lb-track" id="lbTrack"></div>
+    <div class="lb-bar lb-top"><button class="lb-btn" type="button" id="lbBack" aria-label="Volver a todas las fotos"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></button><span class="lb-count" id="lbCount" aria-live="polite"></span><button class="lb-btn" type="button" id="lbClose2" aria-label="Cerrar el álbum"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="lb-bar lb-bot"><button class="lb-btn" type="button" id="lbPrev" aria-label="Foto anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="lb-cap" id="lbCap"></span><button class="lb-btn" type="button" id="lbNext" aria-label="Foto siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
 </dialog>
 
 <script>
@@ -684,39 +700,41 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   if(hv){hv.addEventListener('ended',function(){showVid((vi+1)%vd.length)});
     vd.forEach(function(b,k){b.addEventListener('click',function(){showVid(k)})});}
 
-  // álbum: visor a pantalla completa con deslizar
+  // álbum: portada → cuadrícula → foto a pantalla completa
   (function(){
-    var lb=document.getElementById('lb'); if(!lb||!lb.showModal)return;
-    var tr=document.getElementById('lbTrack'), cnt=document.getElementById('lbCount'), cap=document.getElementById('lbCap'), opener=null;
-    var srcs=[].slice.call(document.querySelectorAll('.grid figure img, .ph img'));
-    var trig=srcs.map(function(im){return im.closest('figure,.ph')});
-    var ac=document.getElementById('albumCount'); if(ac) ac.textContent=srcs.length+' fotos';
-    srcs.forEach(function(im){
-      var d=document.createElement('div');d.className='lb-slide';
-      var c=document.createElement('img');c.dataset.src=im.getAttribute('src');c.alt=im.alt;c.decoding='async';
-      d.appendChild(c);tr.appendChild(d);
+    var lb=document.getElementById('lb'), tp=document.getElementById('albumFotos'), btn=document.getElementById('albumOpen');
+    if(!lb||!lb.showModal||!tp||!btn)return;
+    var fotos=[].slice.call(tp.content.querySelectorAll('img')).map(function(i){return{src:i.getAttribute('src'),alt:i.alt}});
+    var grid=document.getElementById('lbGrid'), list=document.getElementById('lbList'), view=document.getElementById('lbView');
+    var tr=document.getElementById('lbTrack'), cnt=document.getElementById('lbCount'), cap=document.getElementById('lbCap');
+    document.getElementById('lbTitle').textContent='Álbum · '+fotos.length+' fotos';
+    var thumbs=[], slides=[];
+    fotos.forEach(function(f,k){
+      var li=document.createElement('li'), b=document.createElement('button'), im=document.createElement('img');
+      b.type='button';b.setAttribute('aria-label','Ver en grande: '+f.alt);im.alt='';im.loading='lazy';im.decoding='async';im.dataset.src=f.src;
+      b.appendChild(im);li.appendChild(b);list.appendChild(li);thumbs.push(b);
+      b.addEventListener('click',function(){show(k)});
+      var d=document.createElement('div'), si=document.createElement('img');d.className='lb-slide';si.alt=f.alt;si.decoding='async';si.dataset.src=f.src;
+      d.appendChild(si);tr.appendChild(d);slides.push(si);
     });
-    var slides=[].slice.call(tr.children);
-    function load(k){[k-1,k,k+1].forEach(function(j){var s=slides[j];if(s){var im=s.firstChild;if(!im.src)im.src=im.dataset.src}})}
-    function cur(){return Math.round(tr.scrollLeft/tr.clientWidth)}
-    function upd(){var k=Math.max(0,Math.min(slides.length-1,cur()));cnt.textContent=(k+1)+' / '+slides.length;cap.textContent=slides[k].firstChild.alt;load(k)}
-    function go(k){k=(k+slides.length)%slides.length;load(k);tr.scrollTo({left:k*tr.clientWidth,behavior:reduce?'auto':'smooth'})}
-    function open(k,el){opener=el;document.documentElement.classList.add('lb-open');lb.showModal();load(k);tr.scrollLeft=k*tr.clientWidth;upd();document.getElementById('lbNext').focus()}
-    function close(){lb.close()}
-    lb.addEventListener('close',function(){document.documentElement.classList.remove('lb-open');if(opener)opener.focus()});
-    trig.forEach(function(t,k){
-      if(t.tagName==='FIGURE'){t.tabIndex=0;t.setAttribute('role','button');t.setAttribute('aria-label','Ver en grande: '+srcs[k].alt);
-        t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(k,t)}})}
-      else t.setAttribute('aria-label','Ver en grande: '+srcs[k].alt);
-      t.addEventListener('click',function(){open(k,t)});
-    });
-    var all=document.getElementById('albumAll'); if(all) all.addEventListener('click',function(){open(0,all)});
-    document.getElementById('lbClose').addEventListener('click',close);
+    function ld(im){if(im&&!im.src)im.src=im.dataset.src}
+    function cur(){return Math.max(0,Math.min(slides.length-1,Math.round(tr.scrollLeft/tr.clientWidth)))}
+    function upd(){var k=cur();cnt.textContent=(k+1)+' / '+slides.length;cap.textContent=slides[k].alt;[k-1,k,k+1].forEach(function(j){ld(slides[j])})}
+    function go(k){k=(k+slides.length)%slides.length;ld(slides[k]);tr.scrollTo({left:k*tr.clientWidth,behavior:reduce?'auto':'smooth'})}
+    function show(k){view.hidden=false;[k-1,k,k+1].forEach(function(j){ld(slides[j])});tr.scrollLeft=k*tr.clientWidth;upd();document.getElementById('lbNext').focus()}
+    function back(){var k=cur();view.hidden=true;thumbs[k].focus();thumbs[k].scrollIntoView({block:'nearest'})}
+    function open(){thumbs.forEach(function(b){ld(b.firstChild)});view.hidden=true;grid.scrollTop=0;document.documentElement.classList.add('lb-open');lb.showModal();thumbs[0].focus()}
+    btn.addEventListener('click',open);
+    document.getElementById('lbClose').addEventListener('click',function(){lb.close()});
+    document.getElementById('lbClose2').addEventListener('click',function(){lb.close()});
+    document.getElementById('lbBack').addEventListener('click',back);
     document.getElementById('lbPrev').addEventListener('click',function(){go(cur()-1)});
     document.getElementById('lbNext').addEventListener('click',function(){go(cur()+1)});
-    lb.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(cur()+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(cur()-1)}});
-    var t=null; tr.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(upd,60)},{passive:true});
-    window.addEventListener('resize',function(){if(lb.open)tr.scrollLeft=cur()*tr.clientWidth});
+    lb.addEventListener('cancel',function(e){if(!view.hidden){e.preventDefault();back()}});
+    lb.addEventListener('close',function(){document.documentElement.classList.remove('lb-open');btn.focus()});
+    lb.addEventListener('keydown',function(e){if(view.hidden)return;if(e.key==='ArrowRight'){e.preventDefault();go(cur()+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(cur()-1)}});
+    var t=null;tr.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(upd,60)},{passive:true});
+    window.addEventListener('resize',function(){if(lb.open&&!view.hidden)tr.scrollLeft=cur()*tr.clientWidth});
   })();
 
   // entradas al hacer scroll
