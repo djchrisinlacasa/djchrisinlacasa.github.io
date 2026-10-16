@@ -214,6 +214,17 @@ div.show::before{display:none}
 .bio .text .bio-txt p{font-size:var(--body);line-height:1.6;max-width:52ch}
 .bio-txt p + p{margin-top:.9em}
 
+
+/* ---------- mixcloud ---------- */
+.mix{background:var(--surface);padding:12px}
+.mix iframe{display:block;width:100%;height:120px;border:0;background:#000}
+.mixlist{list-style:none;margin-top:8px;max-height:360px;overflow-y:auto}
+.mixlist button{display:flex;align-items:center;gap:14px;width:100%;min-height:52px;padding:0 14px;border:0;background:none;color:var(--ink);font:inherit;font-weight:500;text-align:left;cursor:pointer;transition:background-color .2s,color .2s}
+.mixlist button:hover{background:#26221b}
+.mixlist button[aria-current="true"]{color:var(--accent);font-weight:700}
+.mixlist .n{color:var(--muted);font-size:var(--small);font-variant-numeric:tabular-nums;min-width:22px}
+.mixall{display:inline-block;margin:12px 14px 6px;font-weight:700;font-size:15px}
+
 /* ---------- música ---------- */
 .music{padding:clamp(96px,12vw,180px) var(--m);display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,80px);align-items:start}
 .music h2{display:flex;align-items:flex-end;gap:.25em}
@@ -458,11 +469,23 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <section class="music" id="musica" aria-labelledby="musica-t">
     <div>
       <h2 id="musica-t" class="rise">Escucha <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></h2>
-      <p class="lead rise">Sets y mezclas para ponerte en situación antes de la noche. Dale al play aquí mismo.</p>
+      <p class="lead rise">Mis mixes en Mixcloud. Elige uno y dale al play aquí mismo.</p>
     </div>
-    <div class="player rise">
-      <iframe title="Sets de DJ Chris in la Casa en SoundCloud" loading="lazy" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/djchrisinlacasa&amp;color=%23f5b700&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+    <div class="mix rise">
+      <iframe id="mixPlayer" title="Mixes de DJ Chris en Mixcloud" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&amp;light=0&amp;feed=%2Fchristopherat3%2Fdj-chris-underwater%2F" width="100%" height="120" loading="lazy" allow="autoplay"></iframe>
+      <ul class="mixlist">
+        <li><button type="button" data-mix="dj-chris-underwater" aria-current="true"><span class="n">01</span>DJ Chris Underwater</button></li>
+        <li><button type="button" data-mix="locos-por-el-remember-radio"><span class="n">02</span>Locos por el Remember Radio</button></li>
+        <li><button type="button" data-mix="dj-chris-in-la-casa-parte-4"><span class="n">03</span>DJ Chris in la Casa · Parte 4</button></li>
+        <li><button type="button" data-mix="djchris-in-la-casa-parte-3"><span class="n">04</span>DJ Chris in la Casa · Parte 3</button></li>
+        <li><button type="button" data-mix="djchrisinlacasa-part-2"><span class="n">05</span>DJ Chris in la Casa · Part 2</button></li>
+        <li><button type="button" data-mix="djchrisinlacasa-mix"><span class="n">06</span>DJ Chris in la Casa Mix</button></li>
+        <li><button type="button" data-mix="djchris"><span class="n">07</span>DJ Chris</button></li>
+        <li><button type="button" data-mix="90s-remember-rb"><span class="n">08</span>90's Remember R&amp;B</button></li>
+        <li><button type="button" data-mix="dance-till-morning"><span class="n">09</span>Dance Till Morning</button></li>
+        <li><button type="button" data-mix="tormenta-house-party"><span class="n">10</span>Tormenta House Party</button></li>
+      </ul>
+      <a class="mixall" href="https://www.mixcloud.com/christopherat3/" target="_blank" rel="noopener">Ver todos los mixes en Mixcloud</a>
     </div>
   </section>
 
@@ -487,7 +510,7 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <a class="mail rise" href="mailto:djchris69@gmail.com?subject=Booking%20DJ%20Chris%20in%20la%20Casa&amp;body=Hola%20Chris%2C%0A%0AFecha%3A%20%0ASala%20o%20evento%3A%20%0ACiudad%3A%20%0AHorario%20del%20set%3A%20%0A">djchris69<span>@gmail.com</span></a>
     <div class="cols">
       <div><h3>Booking</h3><a href="mailto:djchris69@gmail.com?subject=Booking%20DJ%20Chris%20in%20la%20Casa">djchris69@gmail.com</a></div>
-      <div><h3>Redes</h3><a href="https://www.instagram.com/djchrisinlacasa/" target="_blank" rel="noopener">Instagram</a> · <a href="https://soundcloud.com/djchrisinlacasa" target="_blank" rel="noopener">SoundCloud</a> · <a href="https://open.spotify.com/artist/0pCseto8Q6msOpSJALpSVH" target="_blank" rel="noopener">Spotify</a></div>
+      <div><h3>Redes</h3><a href="https://www.instagram.com/djchrisinlacasa/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.mixcloud.com/christopherat3/" target="_blank" rel="noopener">Mixcloud</a> · <a href="https://open.spotify.com/artist/0pCseto8Q6msOpSJALpSVH" target="_blank" rel="noopener">Spotify</a></div>
       <div><h3>Base</h3><span>Madrid, España</span></div>
     </div>
   </section>
@@ -574,6 +597,13 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   lb.forEach(function(b){b.addEventListener('click',function(){
     lb.forEach(function(o){o.setAttribute('aria-pressed',String(o===b))});
     document.querySelectorAll('.bio-txt').forEach(function(t){t.hidden=t.dataset.lang!==b.dataset.lang;t.classList.add('in')});
+  })});
+
+  // mixcloud: cambiar de mix
+  var mp=document.getElementById('mixPlayer'), mb=[].slice.call(document.querySelectorAll('.mixlist button'));
+  mb.forEach(function(b){b.addEventListener('click',function(){
+    mp.src='https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&light=0&autoplay=1&feed=%2Fchristopherat3%2F'+b.dataset.mix+'%2F';
+    mb.forEach(function(o){o.removeAttribute('aria-current')}); b.setAttribute('aria-current','true');
   })});
 
   // entradas al hacer scroll
