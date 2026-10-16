@@ -225,6 +225,12 @@ div.show::before{display:none}
 .mixlist .n{color:var(--muted);font-size:var(--small);font-variant-numeric:tabular-nums;min-width:22px}
 .mixall{display:inline-block;margin:12px 14px 6px;font-weight:700;font-size:15px}
 
+
+.vdots{position:absolute;right:var(--m);bottom:var(--m);z-index:2;display:flex;gap:8px}
+.vdots button{width:28px;height:28px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.vdots button::before{content:"";width:10px;height:10px;border-radius:50%;background:rgba(243,238,228,.45);transition:background-color .2s,transform .2s}
+.vdots button[aria-pressed="true"]::before{background:var(--accent);transform:scale(1.25)}
+
 /* ---------- música ---------- */
 .music{padding:clamp(96px,12vw,180px) var(--m);display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,80px);align-items:start}
 .music h2{display:flex;align-items:flex-end;gap:.25em}
@@ -428,7 +434,11 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   </section>
 
   <section class="lovehouse" aria-label="Love house">
-    <video src="videos/lovehouse.mp4?v=2" poster="videos/lovehouse.jpg?v=2" autoplay muted loop playsinline preload="metadata"></video>
+    <video id="hmVideo" src="videos/lovehouse.mp4?v=3" poster="videos/lovehouse.jpg?v=3" autoplay muted playsinline preload="metadata"></video>
+    <div class="vdots" role="group" aria-label="Elegir vídeo">
+      <button type="button" data-src="videos/lovehouse.mp4?v=3" data-poster="videos/lovehouse.jpg?v=3" aria-pressed="true" aria-label="Vídeo 1"></button>
+      <button type="button" data-src="videos/housemusic.mp4?v=1" data-poster="videos/housemusic.jpg?v=1" aria-pressed="false" aria-label="Vídeo 2"></button>
+    </div>
     <button type="button" class="sound" id="soundBtn" aria-pressed="false"><svg class="ic-off" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ic-on" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Activar sonido</span></button>
     <p class="rise">House music.</p>
   </section>
@@ -605,6 +615,13 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     mp.src='https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&light=0&autoplay=1&feed=%2Fchristopherat3%2F'+b.dataset.mix+'%2F';
     mb.forEach(function(o){o.removeAttribute('aria-current')}); b.setAttribute('aria-current','true');
   })});
+
+  // House music: dos vídeos seguidos
+  var hv=document.getElementById('hmVideo'), vd=[].slice.call(document.querySelectorAll('.vdots button')), vi=0;
+  function showVid(k){vi=k;var b=vd[k];var m=hv.muted;hv.src=b.dataset.src;hv.poster=b.dataset.poster;hv.muted=m;hv.play().catch(function(){});
+    vd.forEach(function(o,j){o.setAttribute('aria-pressed',String(j===k))});}
+  if(hv){hv.addEventListener('ended',function(){showVid((vi+1)%vd.length)});
+    vd.forEach(function(b,k){b.addEventListener('click',function(){showVid(k)})});}
 
   // entradas al hacer scroll
   var els=document.querySelectorAll('.rise,.reveal');
