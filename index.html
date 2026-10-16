@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DJ Chris in la Casa · House, afro house y tech house en Madrid</title>
-<meta name="description" content="DJ Chris in la Casa: house, afro house y tech house en Madrid. Fechas, sets y booking.">
+<meta name="description" content="DJ Chris in la Casa, DJ jamaicano afincado en Madrid. Fechas, sets, música y booking.">
 <meta property="og:title" content="DJ Chris in la Casa">
 <meta property="og:description" content="House, afro house y tech house en Madrid. Fechas, sets y booking.">
 <meta property="og:type" content="website">
@@ -204,6 +204,16 @@ div.show::before{display:none}
 .spotify{background:#121212;border-radius:12px;overflow:hidden}
 .spotify iframe{display:block;width:100%;height:452px;border:0}
 
+
+/* ---------- bio con idioma ---------- */
+.bio-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}
+.bio .text .bio-head h2{margin-bottom:0}
+.lang{display:inline-flex;background:var(--surface);padding:3px;border-radius:999px}
+.lang button{border:0;background:none;color:var(--muted);font:inherit;font-weight:700;font-size:13px;min-width:44px;min-height:34px;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.bio .text .bio-txt p{font-size:var(--body);line-height:1.6;max-width:52ch}
+.bio-txt p + p{margin-top:.9em}
+
 /* ---------- música ---------- */
 .music{padding:clamp(96px,12vw,180px) var(--m);display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,80px);align-items:start}
 .music h2{display:flex;align-items:flex-end;gap:.25em}
@@ -345,9 +355,23 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <section class="bio" id="bio" aria-labelledby="bio-t">
     <figure class="reveal"><img src="fotos/cabina.jpg" alt="Chris pinchando en la cabina con los cascos puestos" width="1207" height="1800" loading="lazy" data-parallax></figure>
     <div class="text">
-      <h2 id="bio-t" class="rise">De la pista de atletismo a la cabina</h2>
-      <p class="rise">Chris llegó a España desde Jamaica con 14 años para competir en atletismo. Se quedó por su abuela, y Madrid acabó siendo su casa.</p>
-      <p class="rise">Hoy lo que corre es la pista de baile: house, afro house y tech house con raíz de música negra. Disco, funk, soul, R&amp;B y breaks mezclados para que nadie se siente.</p>
+      <div class="bio-head rise">
+        <h2 id="bio-t">Bio</h2>
+        <div class="lang" role="group" aria-label="Idioma de la bio">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+      <div class="bio-txt rise" data-lang="es" lang="es">
+        <p>DJ Chris, jamaicano afincado en Madrid. Habitual en cabinas de la ciudad como Siroco, Marula, Lula Club, El Sótano, Café La Palma, Medias Puri o Moe Club.</p>
+        <p>Inició su trabajo fuertemente influenciado por el sonido reggae de su tierra natal y, en su constante evolución, ha ido incorporando principalmente elementos y sonidos de la música negra. Por eso en sus sesiones es posible escuchar desde aquellos primigenios sonidos reggae y dancehall combinados con disco, hip hop, funk, pop, breakbeats, R&amp;B, soulful o house, entre otros estilos.</p>
+        <p>DJ Chris conecta con su público y la pista hasta convertir sus sesiones en una auténtica fiesta y baile.</p>
+      </div>
+      <div class="bio-txt rise" data-lang="en" lang="en" hidden>
+        <p>DJ Chris, a Jamaican DJ based in Madrid. He is a regular in the city's DJ booths such as Siroco, Marula, Lula Club, El Sótano, Café La Palma, Medias Puri or Moe Club.</p>
+        <p>In the beginning his work was strongly influenced by reggae, the sound of his native land. Always evolving, Chris has been incorporating mainly sounds and elements of black music. That is why in his sessions you can hear those original reggae and dancehall beats combined with disco, hip hop, funk, pop, breakbeats, R&amp;B, soulful or house, among other styles.</p>
+        <p>DJ Chris connects with his audience and the dance floor until his sessions turn into a real and authentic dance party.</p>
+      </div>
       <dl class="facts rise">
         <div><dt>Base</dt><dd>Madrid</dd></div>
         <div><dt>Origen</dt><dd>Jamaica</dd></div>
@@ -543,6 +567,13 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     sb.setAttribute('aria-pressed',String(!lv.muted)); sb.querySelector('span').textContent=lv.muted?'Activar sonido':'Silenciar';
   });
   new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting&&!lv.muted){lv.muted=true;sb.setAttribute('aria-pressed','false');sb.querySelector('span').textContent='Activar sonido'}})},{threshold:0}).observe(lv);}
+
+  // bio ES / EN
+  var lb=[].slice.call(document.querySelectorAll('.lang button'));
+  lb.forEach(function(b){b.addEventListener('click',function(){
+    lb.forEach(function(o){o.setAttribute('aria-pressed',String(o===b))});
+    document.querySelectorAll('.bio-txt').forEach(function(t){t.hidden=t.dataset.lang!==b.dataset.lang;t.classList.add('in')});
+  })});
 
   // entradas al hacer scroll
   var els=document.querySelectorAll('.rise,.reveal');
