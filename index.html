@@ -263,6 +263,40 @@ div.show::before{display:none}
 .g5,.g6,.g7{grid-column:span 4;aspect-ratio:2/3}
 .grid figcaption{position:absolute;left:16px;bottom:14px;font-size:var(--small);font-weight:500;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 
+/* ---------- álbum ---------- */
+.album{padding:clamp(72px,9vw,140px) var(--m) 0}
+.album-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:28px}
+.album-head h3{font-size:clamp(1.75rem,1.2rem + 2.4vw,3.25rem);font-weight:700;letter-spacing:-.03em;line-height:1}
+.album-head p{color:var(--muted);font-size:var(--small)}
+.album-cols{columns:2;column-gap:6px}
+@media (min-width:821px){.album-cols{columns:3;column-gap:8px}}
+.ph{display:block;width:100%;margin:0 0 6px;break-inside:avoid;padding:0;border:0;background:var(--surface);cursor:zoom-in;overflow:hidden;position:relative}
+.ph img{width:100%;height:auto;transition:transform .8s var(--ease),filter .3s}
+.ph:hover img{transform:scale(1.03);filter:brightness(1.12)}
+.ph:focus-visible,.grid figure:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.grid figure{cursor:zoom-in}
+.album-all{margin-top:24px;width:100%}
+
+/* visor a pantalla completa */
+html.lb-open{overflow:hidden}
+.lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#0c0b09;color:var(--ink)}
+.lb::backdrop{background:#0c0b09}
+.lb[open]{animation:lbIn .28s var(--ease)}
+@keyframes lbIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.lb-track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.lb-track::-webkit-scrollbar{display:none}
+.lb-slide{flex:0 0 100%;height:100%;display:grid;place-items:center;scroll-snap-align:center;padding:64px 0 76px}
+.lb-slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;background:none}
+.lb-bar{position:absolute;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px var(--m);pointer-events:none}
+.lb-bar > *{pointer-events:auto}
+.lb-top{top:0}.lb-bot{bottom:0;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+.lb-count{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.lb-btn{width:48px;height:48px;display:grid;place-items:center;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:var(--ink);cursor:pointer;transition:background-color .2s,color .2s,transform .16s var(--ease)}
+.lb-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.lb-btn:active{transform:scale(.94)}
+.lb-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lb-cap{flex:1;text-align:center;font-size:var(--small);color:var(--muted);padding:0 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
 /* revelado de fotos: una cortina que se abre */
 .js .reveal{clip-path:inset(100% 0 0 0);transition:clip-path 1.2s var(--ease)}
 .js .reveal.in{clip-path:inset(0 0 0 0)}
@@ -516,6 +550,21 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       <figure class="g6 reveal"><img src="fotos/cola.jpg" alt="Gente haciendo cola en la puerta de El Sótano" width="1200" height="1800" loading="lazy"></figure>
       <figure class="g7 reveal"><img src="fotos/movil.jpg" alt="Alguien grabando la cabina con el móvil" width="1200" height="1800" loading="lazy"></figure>
     </div>
+    <div class="album" id="album">
+      <div class="album-head"><h3 class="rise">Álbum</h3><p id="albumCount"></p></div>
+      <div class="album-cols">
+        <button class="ph rise" type="button"><img src="fotos/cabina-sonrisa.jpg" alt="Chris sonriendo en la cabina con los cascos puestos" width="1048" height="1600" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/tormenta-cabina.jpg" alt="Chris pinchando bajo el neón de Tormenta, con la pista bailando delante" width="1320" height="885" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/cabina-ke.jpg" alt="Chris en cabina con otros dos DJs, uno con el puño en alto" width="1320" height="876" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/pista-morada.jpg" alt="Gente bailando y señalando a la cabina con luz morada" width="1078" height="1600" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/tormenta-azul.jpg" alt="La cabina de El Sótano con el neón de Tormenta y luz azul" width="1078" height="1600" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/amigas.jpg" alt="Un grupo de amigas posando y riendo en la fiesta" width="1320" height="880" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/tormenta-rojo.jpg" alt="La pista llena mirando a la cabina de Tormenta, con focos rojos" width="1320" height="882" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/amigos.jpg" alt="Chris posando con dos amigos bajo el neón de Tormenta" width="1320" height="875" loading="lazy"></button>
+        <button class="ph rise" type="button"><img src="fotos/tormenta-pista.jpg" alt="El público de Tormenta bailando entre haces de luz roja y azul" width="1320" height="900" loading="lazy"></button>
+      </div>
+      <button class="btn ghost album-all" type="button" id="albumAll">Ver todas las fotos</button>
+    </div>
   </section>
 
   <section class="booking" id="booking" aria-labelledby="booking-t">
@@ -536,6 +585,12 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <p class="big" aria-hidden="true">In la Casa</p>
   <small><span>© DJ Chris in la Casa</span><span>Fotos: Tormenta en El Sótano, Madrid</span></small>
 </footer>
+
+<dialog class="lb" id="lb" aria-label="Álbum de fotos">
+  <div class="lb-track" id="lbTrack"></div>
+  <div class="lb-bar lb-top"><span class="lb-count" id="lbCount" aria-live="polite"></span><button class="lb-btn" type="button" id="lbClose" aria-label="Cerrar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="lb-bar lb-bot"><button class="lb-btn" type="button" id="lbPrev" aria-label="Foto anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="lb-cap" id="lbCap"></span><button class="lb-btn" type="button" id="lbNext" aria-label="Foto siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+</dialog>
 
 <script>
 (function(){
@@ -628,6 +683,41 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     vd.forEach(function(o,j){o.setAttribute('aria-pressed',String(j===k))});}
   if(hv){hv.addEventListener('ended',function(){showVid((vi+1)%vd.length)});
     vd.forEach(function(b,k){b.addEventListener('click',function(){showVid(k)})});}
+
+  // álbum: visor a pantalla completa con deslizar
+  (function(){
+    var lb=document.getElementById('lb'); if(!lb||!lb.showModal)return;
+    var tr=document.getElementById('lbTrack'), cnt=document.getElementById('lbCount'), cap=document.getElementById('lbCap'), opener=null;
+    var srcs=[].slice.call(document.querySelectorAll('.grid figure img, .ph img'));
+    var trig=srcs.map(function(im){return im.closest('figure,.ph')});
+    var ac=document.getElementById('albumCount'); if(ac) ac.textContent=srcs.length+' fotos';
+    srcs.forEach(function(im){
+      var d=document.createElement('div');d.className='lb-slide';
+      var c=document.createElement('img');c.dataset.src=im.getAttribute('src');c.alt=im.alt;c.decoding='async';
+      d.appendChild(c);tr.appendChild(d);
+    });
+    var slides=[].slice.call(tr.children);
+    function load(k){[k-1,k,k+1].forEach(function(j){var s=slides[j];if(s){var im=s.firstChild;if(!im.src)im.src=im.dataset.src}})}
+    function cur(){return Math.round(tr.scrollLeft/tr.clientWidth)}
+    function upd(){var k=Math.max(0,Math.min(slides.length-1,cur()));cnt.textContent=(k+1)+' / '+slides.length;cap.textContent=slides[k].firstChild.alt;load(k)}
+    function go(k){k=(k+slides.length)%slides.length;load(k);tr.scrollTo({left:k*tr.clientWidth,behavior:reduce?'auto':'smooth'})}
+    function open(k,el){opener=el;document.documentElement.classList.add('lb-open');lb.showModal();load(k);tr.scrollLeft=k*tr.clientWidth;upd();document.getElementById('lbNext').focus()}
+    function close(){lb.close()}
+    lb.addEventListener('close',function(){document.documentElement.classList.remove('lb-open');if(opener)opener.focus()});
+    trig.forEach(function(t,k){
+      if(t.tagName==='FIGURE'){t.tabIndex=0;t.setAttribute('role','button');t.setAttribute('aria-label','Ver en grande: '+srcs[k].alt);
+        t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(k,t)}})}
+      else t.setAttribute('aria-label','Ver en grande: '+srcs[k].alt);
+      t.addEventListener('click',function(){open(k,t)});
+    });
+    var all=document.getElementById('albumAll'); if(all) all.addEventListener('click',function(){open(0,all)});
+    document.getElementById('lbClose').addEventListener('click',close);
+    document.getElementById('lbPrev').addEventListener('click',function(){go(cur()-1)});
+    document.getElementById('lbNext').addEventListener('click',function(){go(cur()+1)});
+    lb.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(cur()+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(cur()-1)}});
+    var t=null; tr.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(upd,60)},{passive:true});
+    window.addEventListener('resize',function(){if(lb.open)tr.scrollLeft=cur()*tr.clientWidth});
+  })();
 
   // entradas al hacer scroll
   var els=document.querySelectorAll('.rise,.reveal');
