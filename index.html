@@ -51,8 +51,7 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 
 /* ---------- hero: foto a pantalla completa ---------- */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--m) clamp(24px,5vh,56px)}
-.hero-img{position:absolute;inset:0 0 auto;transform-origin:50% 0;width:100%;height:108%;object-fit:cover;object-position:50% 0%;filter:brightness(.72) saturate(1.05);animation:kb 18s ease-out forwards;will-change:transform}
-@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero-img{position:absolute;inset:0 0 auto;transform-origin:50% 0;width:100%;height:108%;object-fit:cover;object-position:50% 0%;filter:brightness(.72) saturate(1.05)}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,.9) 0%,rgba(12,11,9,0) 55%)}
 .hero > *:not(.hero-img):not(.flash){position:relative;z-index:2}
 .hero h1{font-weight:700;text-transform:uppercase;line-height:.84;letter-spacing:-.045em;font-size:clamp(60px,11vw,200px);margin-left:-.04em}
