@@ -398,11 +398,11 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 /* ---------- merch: camiseta Tormenta (scroll) ---------- */
 .merch{--pink:#ff3db0;position:relative}
-.m-scroll{position:relative;height:320svh}
-.m-stage{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center;padding:72px var(--m) 24px}
-.m-glow{position:absolute;left:50%;top:50%;width:min(110vw,820px);aspect-ratio:1;transform:translate(-50%,-50%) scale(calc(.7 + var(--p,0)*.6));background:radial-gradient(circle,rgba(255,61,176,calc(.12 + var(--p,0)*.22)),rgba(255,61,176,0) 62%);pointer-events:none}
+.m-scroll{position:relative}
+.m-stage{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:22px;padding:clamp(72px,12vh,140px) var(--m) 8px}
+.m-glow{position:absolute;left:50%;top:50%;width:min(110vw,820px);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,61,176,.24),rgba(255,61,176,0) 62%);pointer-events:none}
 .m-word{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:700;letter-spacing:-.05em;line-height:.85;font-size:clamp(5rem,26vw,22rem);color:transparent;-webkit-text-stroke:1.5px rgba(255,61,176,.35);white-space:nowrap;pointer-events:none;opacity:var(--wo,1)}
-.m-head{position:absolute;top:clamp(76px,12vh,120px);left:var(--m);right:var(--m);text-align:center;z-index:2;transition:opacity .4s}
+.m-head{position:relative;text-align:center;z-index:2}
 .m-head .kicker{color:var(--pink);font-weight:700;font-size:var(--small);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
 .m-head h2{font-size:clamp(2.2rem,1rem + 5vw,5rem)}
 .tee{position:relative;z-index:1;perspective:1600px;width:min(78vw,50svh,520px);aspect-ratio:750/786;margin-top:clamp(40px,10vh,110px);background:none;border:0;padding:0;color:inherit}
@@ -410,16 +410,15 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .tee img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
 .tee .t-back{transform:rotateY(180deg)}
 .tee-float{position:absolute;inset:0;animation:teeFloat 4.5s ease-in-out infinite}
-.m-card{position:relative;z-index:1;width:min(92vw,54svh,560px);aspect-ratio:640/670;margin-top:clamp(40px,9vh,100px);border-radius:18px;overflow:hidden;background:#9a948c;box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06)}
-.m-card canvas,.m-card img{position:absolute;inset:0;width:100%;height:100%;display:block}
-.m-card img{object-fit:cover}
+.m-card{position:relative;z-index:1;width:min(92vw,62svh,560px);aspect-ratio:640/670;border-radius:18px;overflow:hidden;background:#9a948c;box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06)}
+.m-card video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 .m-static .m-card{margin-top:0}
 @keyframes teeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.m-cap{position:absolute;left:var(--m);right:var(--m);bottom:clamp(104px,14vh,140px);z-index:2;text-align:center;font-weight:700;font-size:var(--lead);letter-spacing:-.02em}
+.m-cap{position:relative;width:100%;height:1.4em;z-index:2;text-align:center;font-weight:700;font-size:var(--lead);letter-spacing:-.02em}
 .m-cap span{position:absolute;left:0;right:0;bottom:0;opacity:0;transform:translateY(16px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .m-cap span.on{opacity:1;transform:none}
 .m-cap em{font-style:normal;color:var(--pink)}
-.m-bar{position:absolute;left:var(--m);right:var(--m);bottom:clamp(84px,10vh,100px);height:2px;background:#26221b;z-index:2}
+.m-bar{position:relative;width:min(92vw,62svh,560px);height:2px;background:#26221b;z-index:2}
 .m-bar i{display:block;height:100%;background:var(--pink);transform-origin:left;transform:scaleX(var(--p,0))}
 .merch-info{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:clamp(24px,6vh,64px) var(--m) clamp(72px,12vh,140px)}
 .merch-info .kicker{color:var(--pink);font-weight:700;font-size:var(--small);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
@@ -596,13 +595,12 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
           <p class="kicker">Merch oficial · Tormenta</p>
           <h2 id="merch-t">Love House Tee</h2>
         </div>
-        <div class="m-card" id="mCard">
-          <img id="mPoster" src="fotos/camiseta-giro/f059.webp" alt="Camiseta negra Tormenta: delante TORMENTA en rosa, detrás LOVE HOUSE" width="640" height="670">
-          <canvas id="mCanvas" width="640" height="670" aria-hidden="true"></canvas>
+        <div class="m-card">
+          <video id="mVideo" src="videos/camiseta.mp4" poster="videos/camiseta.jpg" autoplay muted loop playsinline preload="auto" aria-label="La camiseta Tormenta girando: detrás LOVE HOUSE, delante TORMENTA"></video>
         </div>
         <p class="m-cap" aria-hidden="true">
-          <span data-from="0" data-to=".22">Algodón negro, <em>grueso</em>.</span>
-          <span data-from=".22" data-to=".7">Detrás: <em>LOVE HOUSE</em></span>
+          <span data-from="0" data-to=".24">Algodón negro, <em>grueso</em>.</span>
+          <span data-from=".24" data-to=".7">Detrás: <em>LOVE HOUSE</em></span>
           <span data-from=".7" data-to="1.1">Delante: <em>TORMENTA</em></span>
         </p>
         <div class="m-bar" aria-hidden="true"><i></i></div>
@@ -890,42 +888,20 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   els.forEach(function(e){io.observe(e)});
 })();
 (function(){
-  var sec=document.getElementById('merch'),sc=document.getElementById('mScroll'),st=document.getElementById('mStage'),
-      head=document.getElementById('mHead'),cv=document.getElementById('mCanvas'),ctx=cv.getContext('2d'),
-      poster=document.getElementById('mPoster'),caps=st.querySelectorAll('.m-cap span'),b=document.getElementById('buyTee');
-  var N=59,frames=[],cur=-1,want=0,started=false;
+  var v=document.getElementById('mVideo'),st=document.getElementById('mStage'),caps=st.querySelectorAll('.m-cap span'),b=document.getElementById('buyTee');
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function cl(v){return v<0?0:v>1?1:v}
-  function src(i){return 'fotos/camiseta-giro/f'+('00'+(i+1)).slice(-3)+'.webp'}
-  function paint(i){
-    // dibuja el fotograma pedido o el cargado más cercano
-    for(var d=0;d<N;d++){var k=[i-d,i+d];for(var j=0;j<2;j++){var f=frames[k[j]];if(f&&f.complete&&f.naturalWidth){if(k[j]!==cur){ctx.drawImage(f,0,0,cv.width,cv.height);cur=k[j];poster.style.visibility='hidden'}return}}}
-  }
-  function load(){
-    if(started)return;started=true;
-    var order=[];for(var s=8;s>=1;s=s>>1)for(var i=0;i<N;i+=s)if(order.indexOf(i)<0)order.push(i);
-    order.forEach(function(i){var im=new Image();im.decoding='async';im.onload=function(){if(Math.abs(i-want)<=Math.abs(cur-want)||cur<0)paint(want)};im.src=src(i);frames[i]=im});
-  }
-  if(reduce){sec.classList.add('m-static');cv.remove();return bind()}
-  if('IntersectionObserver' in window){new IntersectionObserver(function(e){if(e[0].isIntersecting)load()},{rootMargin:'150% 0px'}).observe(sec)}else load();
-  var ticking=false;
-  function draw(){
-    ticking=false;
-    var r=sc.getBoundingClientRect(),p=cl(-r.top/(r.height-window.innerHeight));
-    want=Math.round(cl((p-.04)/.9)*(N-1));if(started)paint(want);
+  if(reduce){v.removeAttribute('autoplay');v.pause();v.controls=true}
+  function tick(){
+    var p=v.duration?v.currentTime/v.duration:0;
     st.style.setProperty('--p',p.toFixed(3));
-    st.style.setProperty('--wo',(.25+cl((p-.25)/.3)*.5).toFixed(2));
-    head.style.opacity=(1-cl((p-.06)/.12)).toFixed(2);
     caps.forEach(function(c){c.classList.toggle('on',p>=+c.dataset.from&&p<+c.dataset.to)});
+    requestAnimationFrame(tick);
   }
-  function req(){if(!ticking){ticking=true;requestAnimationFrame(draw)}}
-  window.addEventListener('scroll',req,{passive:true});window.addEventListener('resize',req);draw();
-  bind();
-  function bind(){
-    document.querySelectorAll('.sizes input').forEach(function(r){r.addEventListener('change',function(){
-      b.href='https://wa.me/34635039859?text='+encodeURIComponent('Hola Chris, quiero la camiseta Love House de Tormenta en talla '+r.value+' (30 €).');
-    })});
-  }
+  tick();
+  if('IntersectionObserver' in window&&!reduce){new IntersectionObserver(function(e){if(e[0].isIntersecting){var pr=v.play();if(pr&&pr.catch)pr.catch(function(){})}else v.pause()}).observe(v)}
+  document.querySelectorAll('.sizes input').forEach(function(r){r.addEventListener('change',function(){
+    b.href='https://wa.me/34635039859?text='+encodeURIComponent('Hola Chris, quiero la camiseta Love House de Tormenta en talla '+r.value+' (30 €).');
+  })});
 })();
 </script>
 </body>
