@@ -72,6 +72,11 @@
   .count input:checked + label{background:var(--ink);border-color:var(--ink);color:#fff}
   .count input:focus-visible + label{outline:3px solid var(--volt);outline-offset:2px}
   .hint{font-size:14px;color:var(--muted);margin-top:8px}
+  .checks{display:grid;gap:12px}
+  .chk{display:flex;gap:12px;align-items:flex-start;margin:0;font-weight:500;font-size:15px;line-height:1.4;cursor:pointer}
+  .chk input{flex:none;width:24px;height:24px;margin:0;accent-color:var(--ink);cursor:pointer}
+  .chk a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+  .chk.miss span{color:var(--err)}
 
   button{
     height:60px;width:100%;border:0;border-radius:14px;cursor:pointer;
@@ -135,6 +140,11 @@
       <p class="hint">Contándote a ti. Todos tenéis que entrar antes de la 1:00.</p>
     </fieldset>
 
+    <div class="checks">
+      <label class="chk"><input type="checkbox" id="acTerm" name="condiciones"><span>Acepto las <a href="condiciones.html#lista" target="_blank">condiciones de la lista</a></span></label>
+      <label class="chk"><input type="checkbox" id="acPriv" name="privacidad"><span>Acepto la <a href="privacidad.html" target="_blank">política de privacidad</a> y que Chris use mi nombre para la lista de la puerta</span></label>
+    </div>
+
     <button type="submit" id="btn">Apuntarme por WhatsApp</button>
     <p class="msg" id="msg" role="status" aria-live="polite"></p>
   </form>
@@ -159,6 +169,7 @@
   <div class="info">
     <p>¿Llegas después de la 1:00? <a href="https://salaelsotano.com" target="_blank" rel="noopener">Entradas en salaelsotano.com</a></p>
     <p>Dudas: <a href="https://instagram.com/djchrisinlacasa" target="_blank" rel="noopener">@djchrisinlacasa</a></p>
+    <p><a href="condiciones.html">Aviso legal y condiciones</a> · <a href="privacidad.html">Privacidad</a></p>
   </div>
 </main>
 
@@ -166,7 +177,12 @@
 (function(){
   // Número de WhatsApp de Chris con prefijo de país, sin + ni espacios (ej. 34600111222)
   var WHATSAPP = "34635039859";
-  var KEY = "lista-tormenta-2310";
+  // Versión de las condiciones y la privacidad que acepta la persona (cámbiala si cambias los textos)
+  var VERSION = "v. 23/10/2026";
+  function sello(){
+    var d = new Date(), z = function(n){return (n<10?"0":"")+n};
+    return z(d.getDate())+"/"+z(d.getMonth()+1)+"/"+d.getFullYear()+" "+z(d.getHours())+":"+z(d.getMinutes());
+  }
   var app = document.getElementById("app");
   var f = document.getElementById("f");
   var msg = document.getElementById("msg");
@@ -189,10 +205,21 @@
       f.nombre.focus();
       return;
     }
+    var t = document.getElementById("acTerm"), p = document.getElementById("acPriv");
+    t.parentNode.classList.toggle("miss", !t.checked);
+    p.parentNode.classList.toggle("miss", !p.checked);
+    if(!t.checked || !p.checked){
+      msg.className = "msg err";
+      msg.textContent = "Marca las dos casillas para apuntarte.";
+      (!t.checked ? t : p).focus();
+      return;
+    }
     var personas = f.querySelector("input[name=personas]:checked").value;
     var texto = "Hola Chris, apúntame a la lista de Tormenta (viernes 23):\n" +
-                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas");
-    try{ localStorage.setItem(KEY, JSON.stringify({nombre:nombre, personas:personas})); }catch(e){}
+                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas") +
+                "\n\n✓ Acepto las condiciones de la lista (" + VERSION + ")" +
+                "\n✓ Acepto la política de privacidad (" + VERSION + ")" +
+                "\nEnviado desde la web: " + sello();
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
     showDone(nombre);
   });
