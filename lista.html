@@ -177,12 +177,6 @@
 (function(){
   // Número de WhatsApp de Chris con prefijo de país, sin + ni espacios (ej. 34600111222)
   var WHATSAPP = "34635039859";
-  // Versión de las condiciones y la privacidad que acepta la persona (cámbiala si cambias los textos)
-  var VERSION = "v. 23/10/2026";
-  function sello(){
-    var d = new Date(), z = function(n){return (n<10?"0":"")+n};
-    return z(d.getDate())+"/"+z(d.getMonth()+1)+"/"+d.getFullYear()+" "+z(d.getHours())+":"+z(d.getMinutes());
-  }
   var app = document.getElementById("app");
   var f = document.getElementById("f");
   var msg = document.getElementById("msg");
@@ -216,10 +210,7 @@
     }
     var personas = f.querySelector("input[name=personas]:checked").value;
     var texto = "Hola Chris, apúntame a la lista de Tormenta (viernes 23):\n" +
-                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas") +
-                "\n\n✓ Acepto las condiciones de la lista (" + VERSION + ")" +
-                "\n✓ Acepto la política de privacidad (" + VERSION + ")" +
-                "\nEnviado desde la web: " + sello();
+                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas");
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
     showDone(nombre);
   });
