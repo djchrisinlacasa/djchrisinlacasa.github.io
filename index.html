@@ -129,6 +129,8 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 .shows-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
 .next{font-size:var(--lead);font-weight:500}
 .next strong{color:var(--accent)}
+.next-tor{margin-top:10px;font-size:var(--small);font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.next-tor b{display:inline-block;margin-right:.35em;font-size:clamp(28px,3.4vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--accent);vertical-align:-.12em;font-variant-numeric:tabular-nums;text-transform:none}
 .show{display:grid;grid-template-columns:150px 1fr 1fr auto;align-items:center;gap:24px;padding:28px 0;position:relative;text-decoration:none}
 div.show::before{display:none}
 .show + .show{box-shadow:0 -2px 0 #26221b}
@@ -554,7 +556,10 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <section class="shows" id="fechas" aria-labelledby="fechas-t">
     <div class="shows-head">
       <h2 id="fechas-t" class="rise">Próximas fechas</h2>
-      <p class="next rise" id="next" aria-live="polite">Próxima sesión: <strong>viernes 23 de octubre</strong></p>
+      <div class="next-wrap rise">
+        <p class="next" id="next" aria-live="polite">Próxima sesión: <strong>viernes 23 de octubre</strong></p>
+        <p class="next-tor" id="nextTor" hidden></p>
+      </div>
     </div>
     <div id="showList">
       <a class="show rise" data-date="2026-10-23" href="https://salaelsotano.com" target="_blank" rel="noopener">
@@ -793,6 +798,16 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   else{
     var n=Math.round((next-now)/864e5), c=n===0?'Es hoy':n===1?'Es mañana':'Faltan '+n+' días';
     out.innerHTML=c+' · <strong>'+dias[next.getDay()]+' '+next.getDate()+' de '+meses[next.getMonth()]+'</strong>';
+  }
+
+  // cuenta atrás hasta la próxima Tormenta
+  var tor=[].slice.call(document.querySelectorAll('.show[data-date]')).filter(function(s){return /tormenta/i.test(s.querySelector('.what').textContent)})[0];
+  var nt=document.getElementById('nextTor');
+  if(tor&&nt){
+    var tp=tor.dataset.date.split('-'), td=new Date(+tp[0],tp[1]-1,+tp[2]), tn=Math.round((td-now)/864e5);
+    var tf=dias[td.getDay()]+' '+td.getDate()+' de '+meses[td.getMonth()];
+    nt.innerHTML=tn===0?'<b>Hoy</b> es Tormenta':tn===1?'<b>Mañana</b> Tormenta · '+tf:'<b>'+tn+'</b> días para la próxima Tormenta · '+tf;
+    nt.hidden=false;
   }
 
   // nav: se esconde al bajar, aparece al subir
