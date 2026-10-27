@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Tormenta · 23 oct · Lista sold out</title>
-<meta name="description" content="Tormenta 5º aniversario. Viernes 23 de octubre en El Sótano, Madrid. Lista gratis sold out: quedan entradas en salaelsotano.com.">
-<meta property="og:title" content="Lista sold out · Quedan entradas · Tormenta 23 oct">
-<meta property="og:description" content="5º aniversario de Tormenta en El Sótano (Madrid). La lista está llena, pero aún hay entradas.">
+<title>Lista Tormenta · 5 dic</title>
+<meta name="description" content="Tormenta, fiesta house. Sábado 5 de diciembre en El Sótano, Madrid. Apúntate a la lista por WhatsApp o email: entrada gratis hasta la 1:00.">
+<meta property="og:title" content="Lista gratis hasta la 1:00 · Tormenta 5 dic">
+<meta property="og:description" content="Tormenta en El Sótano (Madrid), sábado 5 de diciembre. Apúntate y entra gratis antes de la 1:00.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#F3F4F1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +83,8 @@
     background:var(--ink);color:#fff;font:inherit;font-weight:600;font-size:18px;
     transition:transform .12s ease,opacity .15s ease;
   }
+  .btns{display:grid;gap:10px}
+  button.alt{background:var(--paper);color:var(--ink);border:1.5px solid var(--ink)}
   button:active{transform:scale(.98)}
   button:disabled{opacity:.55;cursor:default}
   button:focus-visible{outline:3px solid var(--volt);outline-offset:3px}
@@ -98,14 +100,6 @@
   .shown form{display:none}
   @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  .badge{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-         color:#fff;background:var(--err);border-radius:999px;padding:5px 12px;margin-bottom:14px}
-  .tickets{margin-top:28px;padding:24px;background:var(--paper);border:1.5px solid var(--ink);border-radius:16px}
-  .avail{font-weight:600;color:var(--ok);margin-bottom:14px}
-  .cta{display:grid;place-items:center;height:60px;border-radius:14px;background:var(--ink);color:#fff;
-       font-weight:600;font-size:18px;text-decoration:none}
-  .cta:focus-visible{outline:3px solid var(--volt);outline-offset:3px}
-
   section.lineup{margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
   .lineup h4{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:8px}
   .lineup ul{list-style:none;font-family:"Bricolage Grotesque",sans-serif;font-weight:500;
@@ -120,40 +114,117 @@
 <body>
 <main class="wrap" id="app">
   <header>
-    <div class="top"><span>5º aniversario</span><span>Fiesta house</span></div>
+    <div class="top"><span>Lista gratis</span><span>Fiesta house</span></div>
     <h1>Tormenta</h1>
-    <p class="when">Viernes 23 de octubre</p>
+    <p class="when">Sábado 5 de diciembre</p>
     <p class="where">El Sótano · C/ Las Maldonadas, 6 · Madrid</p>
   </header>
 
   <div class="deal">
-    <p class="badge">Lista cerrada</p>
-    <h2>Lista gratis <span class="hl">sold out</span></h2>
-    <p>Ya no quedan plazas en la lista. Por favor, no escribas por WhatsApp ni por Instagram para apuntarte: no se añaden más nombres.</p>
+    <h2>Entrada <span class="hl">gratis</span> hasta la 1:00</h2>
+    <p>Apúntate a la lista por WhatsApp o por email, entra antes de la una y di tu nombre en la puerta.</p>
   </div>
 
-  <div class="tickets">
-    <p class="avail">Todavía hay entradas disponibles</p>
-    <a class="cta" href="https://salaelsotano.com" target="_blank" rel="noopener">Comprar entrada</a>
-    <p class="hint">Venta online en salaelsotano.com hasta fin de existencias.</p>
+  <form id="f" novalidate>
+    <div>
+      <label for="nombre">Nombre y apellido</label>
+      <input type="text" id="nombre" name="nombre" autocomplete="name" required maxlength="60" placeholder="Como lo vas a decir en la puerta">
+    </div>
+
+    <fieldset style="border:0">
+      <legend style="font-weight:600;font-size:15px;margin-bottom:8px">¿Cuántos venís?</legend>
+      <div class="count">
+        <input type="radio" name="personas" id="p1" value="1" checked><label for="p1">Solo yo</label>
+        <input type="radio" name="personas" id="p2" value="2"><label for="p2">2</label>
+        <input type="radio" name="personas" id="p3" value="3"><label for="p3">3</label>
+        <input type="radio" name="personas" id="p4" value="4"><label for="p4">4</label>
+      </div>
+      <p class="hint">Contándote a ti. Todos tenéis que entrar antes de la 1:00.</p>
+    </fieldset>
+
+    <div class="checks">
+      <label class="chk"><input type="checkbox" id="acTerm" name="condiciones"><span>Acepto las <a href="condiciones.html#lista" target="_blank">condiciones de la lista</a></span></label>
+      <label class="chk"><input type="checkbox" id="acPriv" name="privacidad"><span>Acepto la <a href="privacidad.html" target="_blank">política de privacidad</a> y que Chris use mi nombre para la lista de la puerta</span></label>
+    </div>
+
+    <div class="btns">
+      <button type="submit" id="btn">Apuntarme por WhatsApp</button>
+      <button type="button" id="btnMail" class="alt">Apuntarme por email</button>
+    </div>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </form>
+
+  <div class="done" id="done" tabindex="-1">
+    <p class="tick">Mensaje preparado ✓</p>
+    <h3 id="doneTitle">Ya casi</h3>
+    <p>Dale a enviar en <span id="doneVia">WhatsApp</span> y quedas en la lista. Luego, el sábado 5, entra antes de la 1:00 y di tu nombre en la puerta.</p>
   </div>
 
   <section class="lineup">
     <h4>Line-up</h4>
     <ul>
-      <li>Irene Gutierrez</li>
-      <li>Loopita</li>
-      <li>Vico Deep</li>
-      <li>Yannik</li>
       <li>DJ Chris in la Casa</li>
+      <li style="color:var(--muted);font-size:18px">Más artistas por anunciar</li>
     </ul>
   </section>
 
   <div class="info">
+    <p>¿Llegas después de la 1:00? <a href="https://salaelsotano.com" target="_blank" rel="noopener">Entradas en salaelsotano.com</a></p>
     <p>Dudas: <a href="https://instagram.com/djchrisinlacasa" target="_blank" rel="noopener">@djchrisinlacasa</a></p>
     <p><a href="condiciones.html">Aviso legal y condiciones</a> · <a href="privacidad.html">Privacidad</a></p>
   </div>
 </main>
 
+<script>
+(function(){
+  // Número de WhatsApp de Chris con prefijo de país, sin + ni espacios (ej. 34600111222)
+  var WHATSAPP = "34635039859";
+  var app = document.getElementById("app");
+  var f = document.getElementById("f");
+  var msg = document.getElementById("msg");
+  var done = document.getElementById("done");
+  var title = document.getElementById("doneTitle");
+
+  var MAIL = "djchris69@gmail.com";
+  function showDone(name, via){
+    document.getElementById("doneVia").textContent = via === "mail" ? "tu correo" : "WhatsApp";
+    title.textContent = name ? "Ya casi, " + name.split(" ")[0] : "Ya casi";
+    app.classList.add("shown");
+    done.focus({preventScroll:true});
+  }
+
+  function enviar(via){
+    msg.className = "msg"; msg.textContent = "";
+    var nombre = f.nombre.value.trim().replace(/\s+/g," ");
+    if(nombre.length < 3 || nombre.indexOf(" ") === -1){
+      msg.className = "msg err";
+      msg.textContent = "Pon nombre y apellido, así te encuentran en la puerta.";
+      f.nombre.focus();
+      return;
+    }
+    var t = document.getElementById("acTerm"), p = document.getElementById("acPriv");
+    t.parentNode.classList.toggle("miss", !t.checked);
+    p.parentNode.classList.toggle("miss", !p.checked);
+    if(!t.checked || !p.checked){
+      msg.className = "msg err";
+      msg.textContent = "Marca las dos casillas para apuntarte.";
+      (!t.checked ? t : p).focus();
+      return;
+    }
+    var personas = f.querySelector("input[name=personas]:checked").value;
+    var texto = "Hola Chris, apúntame a la lista de Tormenta (sábado 5 de diciembre):\n" +
+                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas");
+    if(via === "mail"){
+      location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Lista Tormenta 5 dic: " + nombre) +
+                      "&body=" + encodeURIComponent(texto);
+    } else {
+      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+    }
+    showDone(nombre, via);
+  }
+  f.addEventListener("submit", function(ev){ ev.preventDefault(); enviar("wa"); });
+  document.getElementById("btnMail").addEventListener("click", function(){ enviar("mail"); });
+})();
+</script>
 </body>
 </html>
