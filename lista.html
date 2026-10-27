@@ -55,13 +55,13 @@
 
   form{margin-top:26px;display:grid;gap:20px}
   label{display:block;font-weight:600;font-size:15px;margin-bottom:8px}
-  input[type=text]{
+  input[type=text],input[type=email]{
     width:100%;height:56px;padding:0 16px;
     font:inherit;font-size:18px;color:var(--ink);
     background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
     transition:border-color .15s ease;
   }
-  input[type=text]:focus{outline:none;border-color:var(--ink)}
+  input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--ink)}
   .count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .count input{position:absolute;opacity:0;pointer-events:none}
   .count label{
@@ -88,6 +88,9 @@
   button:active{transform:scale(.98)}
   button:disabled{opacity:.55;cursor:default}
   button:focus-visible{outline:3px solid var(--volt);outline-offset:3px}
+  .legal{margin-top:-8px}
+  .legal a{color:var(--muted);text-underline-offset:3px}
+  input.bad,input.bad:focus{border-color:var(--err)}
   .msg{font-size:15px;min-height:1.5em}
   .msg.err{color:var(--err)}
 
@@ -131,6 +134,11 @@
       <input type="text" id="nombre" name="nombre" autocomplete="name" required maxlength="60" placeholder="Como lo vas a decir en la puerta">
     </div>
 
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required maxlength="80" placeholder="tu@email.com">
+    </div>
+
     <fieldset style="border:0">
       <legend style="font-weight:600;font-size:15px;margin-bottom:8px">¿Cuántos venís?</legend>
       <div class="count">
@@ -142,15 +150,11 @@
       <p class="hint">Contándote a ti. Todos tenéis que entrar antes de la 1:00.</p>
     </fieldset>
 
-    <div class="checks">
-      <label class="chk"><input type="checkbox" id="acTerm" name="condiciones"><span>Acepto las <a href="condiciones.html#lista" target="_blank">condiciones de la lista</a></span></label>
-      <label class="chk"><input type="checkbox" id="acPriv" name="privacidad"><span>Acepto la <a href="privacidad.html" target="_blank">política de privacidad</a> y que Chris use mi nombre para la lista de la puerta</span></label>
-    </div>
-
     <div class="btns">
       <button type="submit" id="btn">Apuntarme por WhatsApp</button>
       <button type="button" id="btnMail" class="alt">Apuntarme por email</button>
     </div>
+    <p class="hint legal">Al apuntarte aceptas las <a href="condiciones.html#lista" target="_blank">condiciones de la lista</a> y la <a href="privacidad.html" target="_blank">privacidad</a>.</p>
     <p class="msg" id="msg" role="status" aria-live="polite"></p>
   </form>
 
@@ -195,25 +199,27 @@
 
   function enviar(via){
     msg.className = "msg"; msg.textContent = "";
+    f.nombre.classList.remove("bad"); f.email.classList.remove("bad");
     var nombre = f.nombre.value.trim().replace(/\s+/g," ");
     if(nombre.length < 3 || nombre.indexOf(" ") === -1){
       msg.className = "msg err";
       msg.textContent = "Pon nombre y apellido, así te encuentran en la puerta.";
+      f.nombre.classList.add("bad");
       f.nombre.focus();
       return;
     }
-    var t = document.getElementById("acTerm"), p = document.getElementById("acPriv");
-    t.parentNode.classList.toggle("miss", !t.checked);
-    p.parentNode.classList.toggle("miss", !p.checked);
-    if(!t.checked || !p.checked){
+    var email = f.email.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
       msg.className = "msg err";
-      msg.textContent = "Marca las dos casillas para apuntarte.";
-      (!t.checked ? t : p).focus();
+      msg.textContent = "Pon un email válido.";
+      f.email.classList.add("bad");
+      f.email.focus();
       return;
     }
     var personas = f.querySelector("input[name=personas]:checked").value;
     var texto = "Hola Chris, apúntame a la lista de Tormenta (sábado 5 de diciembre):\n" +
-                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas");
+                nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas") +
+                "\nEmail: " + email;
     if(via === "mail"){
       location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Lista Tormenta 5 dic: " + nombre) +
                       "&body=" + encodeURIComponent(texto);
