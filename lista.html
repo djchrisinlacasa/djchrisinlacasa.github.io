@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lista Tormenta · 5 dic</title>
-<meta name="description" content="Tormenta, fiesta house. Sábado 5 de diciembre en El Sótano, Madrid. Apúntate a la lista por WhatsApp o email: entrada gratis hasta la 1:00.">
+<meta name="description" content="Tormenta, fiesta house. Sábado 5 de diciembre en El Sótano, Madrid. Apúntate a la lista: entrada gratis hasta la 1:00.">
 <meta property="og:title" content="Lista gratis hasta la 1:00 · Tormenta 5 dic">
 <meta property="og:description" content="Tormenta en El Sótano (Madrid), sábado 5 de diciembre. Apúntate y entra gratis antes de la 1:00.">
 <meta property="og:type" content="website">
@@ -125,7 +125,7 @@
 
   <div class="deal">
     <h2>Entrada <span class="hl">gratis</span> hasta la 1:00</h2>
-    <p>Apúntate a la lista por WhatsApp o por email, entra antes de la una y di tu nombre en la puerta.</p>
+    <p>Apúntate a la lista, entra antes de la una y di tu nombre en la puerta.</p>
   </div>
 
   <form id="f" novalidate>
@@ -152,7 +152,6 @@
 
     <div class="btns">
       <button type="submit" id="btn">Apuntarme por WhatsApp</button>
-      <button type="button" id="btnMail" class="alt">Apuntarme por email</button>
     </div>
     <p class="hint legal">Al apuntarte aceptas las <a href="condiciones.html#lista" target="_blank">condiciones de la lista</a> y la <a href="privacidad.html" target="_blank">privacidad</a>.</p>
     <p class="msg" id="msg" role="status" aria-live="polite"></p>
@@ -190,6 +189,12 @@
   var title = document.getElementById("doneTitle");
 
   var MAIL = "djchris69@gmail.com";
+  // URL de la app de Google Apps Script que guarda cada apuntado en tu hoja de Google Sheets
+  var SHEET_URL = "";
+  function guardar(datos){
+    if(!SHEET_URL) return;
+    try{ fetch(SHEET_URL, {method:"POST", mode:"no-cors", keepalive:true, body:new URLSearchParams(datos)}).catch(function(){}); }catch(e){}
+  }
   function showDone(name, via){
     document.getElementById("doneVia").textContent = via === "mail" ? "tu correo" : "WhatsApp";
     title.textContent = name ? "Ya casi, " + name.split(" ")[0] : "Ya casi";
@@ -220,6 +225,7 @@
     var texto = "Hola Chris, apúntame a la lista de Tormenta (sábado 5 de diciembre):\n" +
                 nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas") +
                 "\nEmail: " + email;
+    guardar({fiesta:"Tormenta 5 dic", nombre:nombre, email:email, personas:personas, canal: via === "mail" ? "Email" : "WhatsApp"});
     if(via === "mail"){
       location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Lista Tormenta 5 dic: " + nombre) +
                       "&body=" + encodeURIComponent(texto);
@@ -229,7 +235,6 @@
     showDone(nombre, via);
   }
   f.addEventListener("submit", function(ev){ ev.preventDefault(); enviar("wa"); });
-  document.getElementById("btnMail").addEventListener("click", function(){ enviar("mail"); });
 })();
 </script>
 </body>
