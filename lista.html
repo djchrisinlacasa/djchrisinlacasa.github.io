@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Lista Tormenta · 5 dic</title>
-<meta name="description" content="Tormenta, fiesta house. Sábado 5 de diciembre en El Sótano, Madrid. Apúntate a la lista: entrada gratis hasta la 1:00.">
-<meta property="og:title" content="Lista gratis hasta la 1:00 · Tormenta 5 dic">
-<meta property="og:description" content="Tormenta en El Sótano (Madrid), sábado 5 de diciembre. Apúntate y entra gratis antes de la 1:00.">
+<title>Lista Tormenta · 4 dic</title>
+<meta name="description" content="Tormenta, fiesta house. Viernes 4 de diciembre en El Sótano, Madrid. Apúntate a la lista: entrada gratis hasta la 1:00.">
+<meta property="og:title" content="Lista gratis hasta la 1:00 · Tormenta 4 dic">
+<meta property="og:description" content="Tormenta en El Sótano (Madrid), viernes 4 de diciembre. Apúntate y entra gratis antes de la 1:00.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,7 +121,7 @@
   <header>
     <div class="top"><span>Lista gratis</span><span>Fiesta house</span></div>
     <h1>Tormenta</h1>
-    <p class="when">Sábado 5 de diciembre</p>
+    <p class="when">Viernes 4 de diciembre</p>
     <p class="where">El Sótano · C/ Las Maldonadas, 6 · Madrid</p>
   </header>
 
@@ -162,7 +162,7 @@
   <div class="done" id="done" tabindex="-1">
     <p class="tick">Mensaje preparado ✓</p>
     <h3 id="doneTitle">Ya casi</h3>
-    <p>Dale a enviar en <span id="doneVia">WhatsApp</span> y quedas en la lista. Luego, el sábado 5, entra antes de la 1:00 y di tu nombre en la puerta.</p>
+    <p>Dale a enviar en <span id="doneVia">WhatsApp</span> y quedas en la lista. Luego, el viernes 4, entra antes de la 1:00 y di tu nombre en la puerta.</p>
   </div>
 
   <section class="lineup">
@@ -227,12 +227,12 @@
       return;
     }
     var personas = f.querySelector("input[name=personas]:checked").value;
-    var texto = "Hola Chris, apúntame a la lista de Tormenta (sábado 5 de diciembre):\n" +
+    var texto = "Hola Chris, apúntame a la lista de Tormenta (viernes 4 de diciembre):\n" +
                 nombre + " — " + (personas === "1" ? "1 persona" : personas + " personas") +
                 "\nEmail: " + email;
-    guardar({fiesta:"Tormenta 5 dic", nombre:nombre, email:email, personas:personas, canal: via === "mail" ? "Email" : "WhatsApp"});
+    guardar({fiesta:"Tormenta 4 dic", nombre:nombre, email:email, personas:personas, canal: via === "mail" ? "Email" : "WhatsApp"});
     if(via === "mail"){
-      location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Lista Tormenta 5 dic: " + nombre) +
+      location.href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Lista Tormenta 4 dic: " + nombre) +
                       "&body=" + encodeURIComponent(texto);
     } else {
       window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
