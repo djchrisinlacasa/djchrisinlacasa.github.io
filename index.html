@@ -465,6 +465,18 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .m-static .tee-in{transition:transform .8s var(--ease)}
 .m-static .tee.back .tee-in{transform:rotateY(180deg)}
 @media (prefers-reduced-motion:reduce){.tee-float{animation:none!important}}
+/* movimiento: Lenis + GSAP (js/motion.js) */
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto}
+.lenis.lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-smooth iframe{pointer-events:none}
+h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+h2 .w>span{display:inline-block;will-change:transform}
+footer .big .ch{display:inline-block}
+.btn.mag{transition:transform .16s var(--ease),translate .35s var(--ease),background-color .2s,color .2s}
+.booking{position:relative;isolation:isolate}
+.booking .dots{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 </style>
 </head>
 <body>
@@ -767,7 +779,7 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <a class="go" href="#booking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Booking</a>
 </nav>
 
-<dialog class="lb" id="lb" aria-labelledby="lbTitle">
+<dialog class="lb" id="lb" aria-labelledby="lbTitle" data-lenis-prevent>
   <div class="lb-head"><h2 id="lbTitle">Álbum</h2><button class="lb-btn" type="button" id="lbClose" aria-label="Cerrar el álbum"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="lb-grid" id="lbGrid"><ul id="lbList"></ul></div>
   <div class="lb-view" id="lbView" hidden>
@@ -970,5 +982,9 @@ footer small{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   [ct,cp].forEach(function(c){c.addEventListener('change',function(){if(c.checked)c.parentNode.classList.remove('miss');if(ct.checked&&cp.checked)cm.textContent=''})});
 })();
 </script>
+<script src="js/lenis.min.js" defer></script>
+<script src="js/gsap.min.js" defer></script>
+<script src="js/ScrollTrigger.min.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>
