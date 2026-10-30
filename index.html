@@ -35,7 +35,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:var(--body);line-height:1.45;-webkit-font-smoothing:antialiased}
+html{background:var(--bg)}
+body{background:transparent;color:var(--ink);font-family:var(--font);font-size:var(--body);line-height:1.45;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--accent);color:var(--accent-ink)}
 a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:2px}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
@@ -53,6 +54,8 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease)}
 .nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
 
+/* ---------- fondo 3D (js/fondo3d.js) ---------- */
+.fondo3d{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 /* ---------- hero: foto a pantalla completa ---------- */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--m) clamp(24px,5vh,56px)}
 .hero-img{position:absolute;inset:0 0 auto;transform-origin:50% 0;width:100%;height:108%;object-fit:cover;object-position:50% 0%;filter:brightness(.72) saturate(1.05)}
@@ -125,7 +128,7 @@ h2{font-size:var(--head);line-height:.95;letter-spacing:-.04em;font-weight:700}
 .b2b-w b{color:var(--accent)}
 
 /* ---------- fechas tipo gira ---------- */
-.shows{padding:clamp(96px,12vw,180px) var(--m);background:var(--surface)}
+.shows{padding:clamp(96px,12vw,180px) var(--m);background:rgba(23,21,16,.86)}
 .shows-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
 .next{font-size:var(--lead);font-weight:500}
 .next strong{color:var(--accent)}
@@ -986,5 +989,6 @@ footer .big .ch{display:inline-block}
 <script src="js/gsap.min.js" defer></script>
 <script src="js/ScrollTrigger.min.js" defer></script>
 <script src="js/motion.js" defer></script>
+<script src="js/fondo3d.js" defer></script>
 </body>
 </html>
