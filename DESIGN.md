@@ -48,7 +48,7 @@ Casi todo es recto (radio 0): botones, tarjetas, fotos. Redondo solo en píldora
 ## Movimiento
 - Curva `--ease: cubic-bezier(.23,1,.32,1)`. Duraciones .16–.4s en interacción, hasta 1.2s en apariciones.
 - Solo animar `transform` y `opacity`. Nunca `transition: all`.
-- Fondo 3D (pista de puntos y vinilo) fijo detrás de todo, `z-index:-1`, sin capturar clics.
+- Fondo 3D (galaxia de partículas doradas) fijo detrás de todo, `z-index:-1`, sin capturar clics.
 - Lenis + GSAP para scroll suave y apariciones `.rise` / `.reveal`.
 - Todo se apaga con `prefers-reduced-motion: reduce`.
 - **Prohibido**: pantalla de entrada, intro negra con el nombre, destellos o zoom al abrir. La portada sale directamente.
