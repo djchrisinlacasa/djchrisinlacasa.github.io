@@ -1,5 +1,5 @@
-/* Fondo 3D de la web: Galaxia. Remolino de partículas doradas con tres brazos que gira despacio,
-   late a 124 BPM y la cámara da la vuelta al bajar por la web. Los otros diseños siguen en el motor. */
+/* Fondo 3D de la web: Bola de discoteca. Bola de espejos girando con destellos y puntos de luz
+   en las paredes que se encienden con el bombo (124 BPM). Los otros diseños siguen en el motor. */
 /* Fondos 3D para DJ Chris in la Casa. Puntos dorados en WebGL puro, sin librerías.
    Todos laten a 124 BPM, se mueven con el scroll y un poco con el dedo / ratón.
    Uso: Fondo3D(canvas, 'tunel' | 'ecualizador' | 'esfera' | 'laseres') -> { stop() } */
@@ -146,18 +146,18 @@
       for (var w = 0; w < W; w++) d.push(Math.asin(Math.random() * 1.6 - 0.8), Math.random() * 6.2832, Math.random(), 1);
       return {
         data: d,
-        eye: function (t, s, mx, my) { return [mx * 1.2, 0.4 - s * 2.4 + my * 0.8, 7.5]; },
-        look: function (t, s) { return [0, 0.6 - s * 1.4, 0]; },
-        vs: HEAD + 'void main(){float vis=1.0;float lon=a.y+uT*0.45;\n' +
+        eye: function (t, s, mx, my) { return [mx * 1.2, 0.6 - s * 0.5 + my * 0.8, 7.5]; },
+        look: function (t, s) { return [0, 0.9 - s * 0.3, 0]; },
+        vs: HEAD + 'void main(){float vis=1.0;float lon=a.y+uT*0.45+uS*6.0;\n' +
           '  vec3 n=vec3(cos(a.x)*cos(lon),sin(a.x),cos(a.x)*sin(lon));\n' +
           '  vec3 L1=normalize(vec3(0.6,0.7,0.9)),L2=normalize(vec3(-0.8,0.2,0.6));\n' +
           '  float g=pow(max(dot(n,L1),0.0),10.0)+pow(max(dot(n,L2),0.0),16.0)*0.8;\n' +
           '  float tw=step(0.985,fract(a.z*91.0+uT*0.7));\n' +
           '  vec3 p;\n' +
           '  if(a.w<0.5){p=n*2.0+vec3(0.0,1.3,0.0);vH=clamp(g*1.5+tw,0.0,1.0);\n' +
-          '    vis=0.6+0.6*clamp(g*1.5+tw,0.0,1.0)+0.25*uBeat;\n' +
-          '  } else {p=n*13.0+vec3(0.0,1.3,0.0);vH=0.6;vis=(0.25+0.75*uBeat)*step(0.4,a.z);}\n' +
-          TAIL('(a.w<0.5?6.5:10.0)', '1.0')
+          '    vis=0.42+0.6*clamp(g*1.5+tw,0.0,1.0)+0.2*uBeat;\n' +
+          '  } else {p=n*13.0+vec3(0.0,1.3,0.0);vH=0.6;vis=(0.2+0.6*uBeat)*step(0.4,a.z);}\n' +
+          TAIL('(a.w<0.5?6.0:10.0)', '0.85')
       };
     },
     /* Altavoz: el cono vibra con el bombo y suelta ondas hacia fuera */
@@ -244,5 +244,5 @@
   c.setAttribute('aria-hidden', 'true');
   document.body.insertBefore(c, document.body.firstChild);
   if (!c.getContext('webgl')) { c.remove(); return; }
-  Fondo3D(c, 'galaxia');
+  Fondo3D(c, 'bola');
 })();
