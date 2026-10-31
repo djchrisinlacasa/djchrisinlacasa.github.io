@@ -35,7 +35,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
-html{background:var(--bg)}
+html{background:var(--bg);color-scheme:dark}
+.skip{position:absolute;left:var(--m);top:-60px;z-index:100;padding:12px 18px;background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none}
+.skip:focus{top:12px}
+section[id],header[id]{scroll-margin-top:64px}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
 body{background:transparent;color:var(--ink);font-family:var(--font);font-size:var(--body);line-height:1.45;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--accent);color:var(--accent-ink)}
 a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:2px}
@@ -486,8 +491,9 @@ footer .big .ch{display:inline-block}
 <script>document.documentElement.classList.add('js')</script>
 
 
+<a class="skip" href="#bio">Saltar al contenido</a>
 <nav class="nav" id="nav" aria-label="Principal">
-  <a class="logo" href="#top">Chris in la Casa</a>
+  <a class="logo" href="#top" translate="no">Chris in la Casa</a>
   <ul>
     <li class="opt"><a href="#bio">Bio</a></li>
     <li><a href="#fechas">Fechas</a></li>
@@ -501,7 +507,7 @@ footer .big .ch{display:inline-block}
 
 <header class="hero" id="top">
   <img class="hero-img" id="heroImg" src="fotos/portada.jpg" alt="DJ Chris pinchando en cabina con los cascos puestos" width="1206" height="1800" fetchpriority="high">
-  <h1 aria-label="DJ Chris in la Casa">
+  <h1 aria-label="DJ Chris in la Casa" translate="no">
     <span class="line"><span>DJ Chris</span></span>
     <span class="line"><span class="gold">in la Casa</span></span>
   </h1>
@@ -561,7 +567,7 @@ footer .big .ch{display:inline-block}
 
   <section class="b2b" aria-labelledby="b2b-t">
     <p class="b2b-k rise" id="b2b-t">Ha compartido cabina con</p>
-    <ul class="rise">
+    <ul class="rise" translate="no">
       <li><a href="https://www.instagram.com/floyd.lavine/" target="_blank" rel="noopener">Floyd Lavine</a></li>
       <li><a href="https://www.instagram.com/chuslesteban/" target="_blank" rel="noopener">Chus Esteban</a></li>
       <li><a href="https://www.instagram.com/wallylopez/" target="_blank" rel="noopener">Wally Lopez</a></li>
