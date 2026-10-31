@@ -709,7 +709,7 @@ footer .big .ch{display:inline-block}
       <a class="btn ghost rise" href="https://open.spotify.com/artist/0pCseto8Q6msOpSJALpSVH" target="_blank" rel="noopener">Seguir en Spotify</a>
     </div>
     <div class="spotify rise">
-      <button type="button" class="embed-gate" id="spGate"><b><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>Cargar Spotify</b><small>Al cargarlo, Spotify puede usar cookies. <a href="privacidad.html#cookies">Más info</a></small></button>
+      <iframe title="DJ Chris in la Casa en Spotify" src="https://open.spotify.com/embed/artist/0pCseto8Q6msOpSJALpSVH?utm_source=generator&amp;theme=0" width="100%" height="452" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
   </section>
 
@@ -719,8 +719,7 @@ footer .big .ch{display:inline-block}
       <p class="lead rise">Sesiones completas en Mixcloud. Elige una y dale al play aquí mismo.</p>
     </div>
     <div class="mix rise">
-      <button type="button" class="embed-gate" id="mixGate"><b><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>Escuchar en Mixcloud</b><small>Al cargarlo, Mixcloud puede usar cookies. <a href="privacidad.html#cookies">Más info</a></small></button>
-      <iframe id="mixPlayer" title="Mixes de DJ Chris en Mixcloud" width="100%" height="120" allow="autoplay" hidden></iframe>
+      <iframe id="mixPlayer" title="Mixes de DJ Chris en Mixcloud" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&amp;light=0&amp;feed=%2Fchristopherat3%2Fdj-chris-underwater%2F" width="100%" height="120" loading="lazy" allow="autoplay"></iframe>
       <ul class="mixlist">
         <li><button type="button" data-mix="dj-chris-underwater" aria-current="true"><span class="n">01</span>DJ Chris Underwater</button></li>
         <li><button type="button" data-mix="locos-por-el-remember-radio"><span class="n">02</span>Locos por el Remember Radio</button></li>
@@ -891,22 +890,12 @@ footer .big .ch{display:inline-block}
   })});
 
   // mixcloud: cambiar de mix
-  // Los reproductores de terceros (cookies) solo se cargan cuando la persona los toca
-  var mp=document.getElementById('mixPlayer'), mg=document.getElementById('mixGate'), mb=[].slice.call(document.querySelectorAll('.mixlist button'));
+  var mp=document.getElementById('mixPlayer'), mb=[].slice.call(document.querySelectorAll('.mixlist button'));
   function playMix(b){
     mp.src='https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&light=0&autoplay=1&feed=%2Fchristopherat3%2F'+b.dataset.mix+'%2F';
-    mp.hidden=false; if(mg) mg.remove();
     mb.forEach(function(o){o.removeAttribute('aria-current')}); b.setAttribute('aria-current','true');
   }
   mb.forEach(function(b){b.addEventListener('click',function(){playMix(b)})});
-  mg.addEventListener('click',function(e){if(e.target.closest('a'))return;playMix(document.querySelector('.mixlist button[aria-current]')||mb[0])});
-  var sg=document.getElementById('spGate');
-  sg.addEventListener('click',function(e){if(e.target.closest('a'))return;
-    var f=document.createElement('iframe');f.title='DJ Chris in la Casa en Spotify';
-    f.src='https://open.spotify.com/embed/artist/0pCseto8Q6msOpSJALpSVH?utm_source=generator&theme=0';
-    f.width='100%';f.height='452';f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-    sg.replaceWith(f);
-  });
 
   // House music: dos vídeos seguidos
   var hv=document.getElementById('hmVideo'), vd=[].slice.call(document.querySelectorAll('.vdots button')), vi=0;
