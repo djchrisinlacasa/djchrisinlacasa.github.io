@@ -491,6 +491,11 @@ footer .big .ch{display:inline-block}
 .sbar{position:fixed;left:0;right:0;top:0;height:2px;z-index:31;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
 .bio-txt .bw{opacity:.22;transition:opacity .25s linear}
 .bio-txt .bw.lit{opacity:1}
+.js .bio:not(.open) .bio-txt p:nth-child(n+3){display:none}
+.more{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:14px;padding:0;border:0;background:none;color:var(--accent);font:inherit;font-weight:700;font-size:var(--body);cursor:pointer;background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:0 85%;background-size:100% 2px}
+.more svg{transition:transform .3s var(--ease)}
+.bio.open .more svg{transform:rotate(180deg)}
+.more:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .tilt{transform-style:preserve-3d;will-change:transform}
 </style>
 </head>
@@ -552,7 +557,7 @@ footer .big .ch{display:inline-block}
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
         </div>
       </div>
-      <div class="bio-txt rise" data-lang="es" lang="es">
+      <div class="bio-txt rise" id="bioTxtEs" data-lang="es" lang="es">
         <p>Chris llegó a Madrid desde Jamaica con 14 años para correr. Lo trajo el atletismo, pero se quedó por su abuela: quería trabajar y poder ayudarla con el dinero. Así, sin planearlo mucho, Madrid pasó a ser su casa.</p>
         <p>La música ya venía con él. Creció escuchando lo que sonaba en casa y en la calle: disco, funk, soul, R&amp;B, hip hop. Cuando empezó a salir por Madrid descubrió el house, y ahí encontró lo que llevaba tiempo buscando: un sonido donde cabía todo eso.</p>
         <p>Empezó pinchando en bares y salas pequeñas y fue haciéndose un nombre en la noche de la ciudad. Ha pasado por Lula Club, Club Magno, Sala But, Café Berlín, Café La Palma, Marula Café, Siroco y Moe Club, entre otras.</p>
@@ -560,7 +565,7 @@ footer .big .ch{display:inline-block}
         <p>Es residente en El Sótano, donde pincha en Tormenta, y en Medias Puri. En El Sótano ha compartido cabina con Wally Lopez y Chus Esteban, y también ha pinchado junto a Floyd Lavine. Ha sonado en Ibiza Global Radio.</p>
         <p>Ahora también produce. Su remix de «El Robo Del Siglo», de Tucu (Tucu) &amp; Zelante, sale el 11 de noviembre de 2026 en Katarsis Musik, y es el primero de lo que quiere sacar a partir de ahora.</p>
       </div>
-      <div class="bio-txt rise" data-lang="en" lang="en" hidden>
+      <div class="bio-txt rise" id="bioTxtEn" data-lang="en" lang="en" hidden>
         <p>Chris moved from Jamaica to Madrid at 14 to run. Athletics brought him here, but he stayed for his grandmother: he wanted to work and help her out with money. Without planning it much, Madrid became home.</p>
         <p>The music came with him. He grew up on what played at home and on the street: disco, funk, soul, R&amp;B, hip hop. When he started going out in Madrid he found house, and with it the sound he'd been looking for, one with room for all of that.</p>
         <p>He started out in bars and small rooms and slowly built a name in the city's nightlife. He has played Lula Club, Club Magno, Sala But, Café Berlín, Café La Palma, Marula Café, Siroco and Moe Club, among others.</p>
@@ -568,6 +573,7 @@ footer .big .ch{display:inline-block}
         <p>He holds residencies at El Sótano, where he plays Tormenta, and at Medias Puri. At El Sótano he has shared the booth with Wally Lopez and Chus Esteban, and he has also played alongside Floyd Lavine. He has been on Ibiza Global Radio.</p>
         <p>He's producing now too. His remix of "El Robo Del Siglo" by Tucu (Tucu) &amp; Zelante is out on Katarsis Musik on 11 November 2026, the first of the music he wants to release from here on.</p>
       </div>
+      <button type="button" class="more" id="bioMore" aria-expanded="false" aria-controls="bioTxtEs bioTxtEn"><span>Leer más</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <dl class="facts rise">
         <div><dt>Base</dt><dd>Madrid</dd></div>
         <div><dt>Origen</dt><dd>Jamaica</dd></div>
@@ -914,7 +920,18 @@ footer .big .ch{display:inline-block}
   lb.forEach(function(b){b.addEventListener('click',function(){
     lb.forEach(function(o){o.setAttribute('aria-pressed',String(o===b))});
     document.querySelectorAll('.bio-txt').forEach(function(t){t.hidden=t.dataset.lang!==b.dataset.lang;t.classList.add('in')});
+    moreLabel();
   })});
+
+  // bio: "Leer más" para abrir el resto del texto
+  var bioSec=document.getElementById('bio'), more=document.getElementById('bioMore');
+  function moreLabel(){if(!more)return;var en=document.querySelector('.lang button[data-lang="en"]').getAttribute('aria-pressed')==='true',open=bioSec.classList.contains('open');
+    more.querySelector('span').textContent=open?(en?'Read less':'Leer menos'):(en?'Read more':'Leer más');}
+  if(more){more.addEventListener('click',function(){
+    var open=bioSec.classList.toggle('open');more.setAttribute('aria-expanded',String(open));moreLabel();
+    if(!open)bioSec.scrollIntoView({block:'start'});
+    if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh();window.dispatchEvent(new Event('scroll'))},50);
+  });}
 
   // mixcloud: cambiar de mix
   var mp=document.getElementById('mixPlayer'), mb=[].slice.call(document.querySelectorAll('.mixlist button'));
