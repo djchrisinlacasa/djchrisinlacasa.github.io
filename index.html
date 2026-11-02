@@ -644,6 +644,7 @@ footer .big .ch{display:inline-block}
     <div class="vdots" role="group" aria-label="Elegir vídeo">
       <button type="button" data-src="videos/lovehouse.mp4?v=3" data-poster="videos/lovehouse.jpg?v=3" aria-pressed="true" aria-label="Vídeo 1"></button>
       <button type="button" data-src="videos/housemusic.mp4?v=1" data-poster="videos/housemusic.jpg?v=1" aria-pressed="false" aria-label="Vídeo 2"></button>
+      <button type="button" data-src="videos/tormenta.mp4?v=1" data-poster="videos/tormenta.jpg?v=1" aria-pressed="false" aria-label="Vídeo 3: Tormenta en El Sótano"></button>
     </div>
     <button type="button" class="sound" id="soundBtn" aria-pressed="false"><svg class="ic-off" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ic-on" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Activar sonido</span></button>
     <p class="rise">House music.</p>
@@ -921,7 +922,7 @@ footer .big .ch{display:inline-block}
   }
   mb.forEach(function(b){b.addEventListener('click',function(){playMix(b)})});
 
-  // House music: dos vídeos seguidos
+  // House music: vídeos seguidos
   var hv=document.getElementById('hmVideo'), vd=[].slice.call(document.querySelectorAll('.vdots button')), vi=0;
   function showVid(k){vi=k;var b=vd[k];var m=hv.muted;hv.src=b.dataset.src;hv.poster=b.dataset.poster;hv.muted=m;hv.play().catch(function(){});
     vd.forEach(function(o,j){o.setAttribute('aria-pressed',String(j===k))});}
