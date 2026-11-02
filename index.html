@@ -543,8 +543,7 @@ footer .big .ch{display:inline-block}
 
 <main>
   <section class="bio" id="bio" aria-labelledby="bio-t">
-    <figure class="reveal vid"><video id="bioVideo" src="videos/bio.mp4?v=1" poster="videos/bio.jpg?v=1" muted loop playsinline preload="none" aria-label="Vídeo de la bio: la historia de DJ Chris, de Jamaica a las cabinas de Madrid"></video>
-      <button type="button" class="sound" id="bioSound" aria-pressed="false"><svg class="ic-off" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ic-on" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Activar sonido</span></button></figure>
+    <figure class="reveal vid"><video id="bioVideo" src="videos/bio.mp4?v=3" poster="videos/bio.jpg?v=3" muted loop playsinline preload="none" aria-label="Vídeo de la bio: la historia de DJ Chris, de Jamaica a las cabinas de Madrid"></video></figure>
     <div class="text">
       <div class="bio-head rise">
         <h2 id="bio-t">Bio</h2>
@@ -898,12 +897,10 @@ footer .big .ch{display:inline-block}
 
   // vídeo de la bio: suena solo si lo pides, se para fuera de pantalla
   var bv=document.getElementById('bioVideo'), bs=document.getElementById('bioSound');
-  if(bv&&bs){
-    function bioLabel(){bs.setAttribute('aria-pressed',String(!bv.muted));bs.querySelector('span').textContent=bv.muted?'Activar sonido':'Silenciar';}
-    bs.addEventListener('click',function(){bv.muted=!bv.muted;bv.play().catch(function(){});bioLabel();});
+  if(bv){
     new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting){if(!reduce)bv.play().catch(function(){});}
-      else{bv.pause();if(!bv.muted){bv.muted=true;bioLabel();}}
+      else{bv.pause();}
     })},{threshold:.35}).observe(bv);
   }
 
