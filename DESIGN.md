@@ -50,6 +50,7 @@ Casi todo es recto (radio 0): botones, tarjetas, fotos. Redondo solo en píldora
 - Solo animar `transform` y `opacity`. Nunca `transition: all`.
 - Fondo 3D (bola de discoteca de puntos dorados) fijo detrás de todo, `z-index:-1`, sin capturar clics.
 - Lenis + GSAP para scroll suave y apariciones `.rise` / `.reveal`.
+- Barra dorada de 2px arriba que marca cuánto has bajado; la bio se enciende palabra a palabra al leerla; las fechas ruedan como un display antes de fijarse; portada del álbum y camiseta se inclinan en 3D con el ratón (solo ordenador). Todo en `js/motion.js`.
 - Todo se apaga con `prefers-reduced-motion: reduce`.
 - **Prohibido**: pantalla de entrada, intro negra con el nombre, destellos o zoom al abrir. La portada sale directamente.
 

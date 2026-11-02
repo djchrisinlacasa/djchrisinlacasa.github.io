@@ -129,4 +129,80 @@
     window.addEventListener('resize', size);
     size();
   }
+  /* 7 · Barra dorada arriba que se llena según bajas por la web */
+  var sbar = document.createElement('div');
+  sbar.className = 'sbar';
+  sbar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(sbar);
+  function prog() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    sbar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0).toFixed(4) + ')';
+  }
+  window.addEventListener('scroll', prog, { passive: true });
+  window.addEventListener('resize', prog);
+  prog();
+
+  if (hasGsap) {
+    /* 8 · Bio: las palabras se encienden una a una mientras lees bajando */
+    document.querySelectorAll('.bio-txt p').forEach(function (p) {
+      if (p.children.length) return;
+      var texto = p.textContent;
+      p.innerHTML = texto.split(/(\s+)/).map(function (w) {
+        return /^\s+$/.test(w) || !w ? w : '<span class="bw">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
+      }).join('');
+    });
+    var bioTxt = document.querySelector('.bio .text');
+    if (bioTxt) {
+      ScrollTrigger.create({
+        trigger: bioTxt, start: 'top 80%', end: 'bottom 45%',
+        onUpdate: function (self) {
+          document.querySelectorAll('.bio-txt:not([hidden])').forEach(function (b) {
+            var ws = b.querySelectorAll('.bw'), n = Math.round(self.progress * ws.length);
+            ws.forEach(function (w, i) { w.classList.toggle('lit', i < n); });
+          });
+        }
+      });
+      // Al cambiar ES/EN, el idioma nuevo sale ya encendido hasta donde vas
+      document.querySelectorAll('.lang button').forEach(function (b) {
+        b.addEventListener('click', function () { setTimeout(function () { ScrollTrigger.refresh(); window.dispatchEvent(new Event('scroll')); }, 50); });
+      });
+    }
+
+    /* 9 · Fechas: los números ruedan como el display de unos platos antes de quedarse fijos */
+    document.querySelectorAll('.show .date').forEach(function (d) {
+      var nodo = d.firstChild;
+      if (!nodo || nodo.nodeType !== 3) return;
+      var fin = nodo.nodeValue;
+      ScrollTrigger.create({
+        trigger: d, start: 'top 92%', once: true,
+        onEnter: function () {
+          var t0 = performance.now(), dur = 700;
+          (function paso(t) {
+            var k = Math.min(1, (t - t0) / dur);
+            nodo.nodeValue = fin.split('').map(function (c, i) {
+              if (!/\d/.test(c)) return c;
+              return k > (i + 1) / (fin.length + 1) ? c : String(Math.floor(Math.random() * 10));
+            }).join('');
+            if (k < 1) requestAnimationFrame(paso); else nodo.nodeValue = fin;
+          })(t0);
+        }
+      });
+    });
+
+    /* 10 · Portada del álbum y camiseta: se inclinan en 3D siguiendo el ratón */
+    if (fine) {
+      document.querySelectorAll('.acover, .m-card').forEach(function (el) {
+        el.classList.add('tilt');
+        var fuerza = el.classList.contains('m-card') ? 10 : 5;
+        el.addEventListener('pointermove', function (e) {
+          var r = el.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(el, { rotationY: x * fuerza, rotationX: -y * fuerza, transformPerspective: 900, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+        });
+        el.addEventListener('pointerleave', function () {
+          gsap.to(el, { rotationY: 0, rotationX: 0, duration: 0.8, ease: 'power3.out', overwrite: 'auto' });
+        });
+      });
+    }
+  }
 })();
