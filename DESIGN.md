@@ -49,7 +49,7 @@ Casi todo es recto (radio 0): botones, tarjetas, fotos. Redondo solo en píldora
 - Curva `--ease: cubic-bezier(.23,1,.32,1)`. Duraciones .16–.4s en interacción, hasta 1.2s en apariciones.
 - Solo animar `transform` y `opacity`. Nunca `transition: all`.
 - Fondo 3D (bola de discoteca de puntos dorados) fijo detrás de todo, `z-index:-1`, sin capturar clics.
-- Portada: sin foto, un suelo de puntos color `--ink` con ondas que salen del centro (`js/ondas.js`, canvas `.hero-ondas`). Se para cuando la portada no se ve.
+- Portada: sin foto, 3x3 pilares negros en vista isométrica que suben y bajan como un ecualizador a 124 BPM, con filos y luz oro que laten con el bombo (`js/pilares.js`, canvas `.hero-fondo`). En ordenador van a la derecha; en móvil, arriba. Se para cuando la portada no se ve. El diseño anterior (ondas de puntos) sigue en `js/ondas.js`.
 - Lenis + GSAP para scroll suave y apariciones `.rise` / `.reveal`.
 - Barra dorada de 2px arriba que marca cuánto has bajado; la bio se enciende palabra a palabra al leerla; las fechas ruedan como un display antes de fijarse; portada del álbum y camiseta se inclinan en 3D con el ratón (solo ordenador). Todo en `js/motion.js`.
 - Todo se apaga con `prefers-reduced-motion: reduce`.
