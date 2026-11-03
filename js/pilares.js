@@ -46,11 +46,11 @@
     var kick = reduce ? 0.3 : Math.exp(-(beat % 1) * 6);
     var ancho = W > 820;
 
-    var a = (ancho ? Math.min(W * 0.4, H * 0.5) : Math.min(W * 0.62, H * 0.42)) / (2 * N);
+    var a = (ancho ? Math.min(W * 0.32, H * 0.4) : Math.min(W * 0.46, H * 0.3)) / (2 * N);
     var b = a * 0.52;
     var step = b * 1.35;
     var cx = ancho ? W * 0.7 : W / 2;
-    var y0 = H * (ancho ? 0.36 : 0.22);
+    var y0 = H * (ancho ? 0.42 : 0.28);
     var fondo = H + 50;
     function P(u, v, h) { return [cx + (u - v) * a, y0 + (u + v) * b - h]; }
 
