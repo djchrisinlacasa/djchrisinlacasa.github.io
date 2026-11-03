@@ -4,7 +4,7 @@
    Todos laten a 124 BPM, se mueven con el scroll y un poco con el dedo / ratón.
    Uso: Fondo3D(canvas, 'tunel' | 'ecualizador' | 'esfera' | 'laseres') -> { stop() } */
 (function (global) {
-  var HEAD = 'attribute vec4 a;uniform mat4 uP,uV;uniform float uT,uBeat,uDpr,uS;varying float vA,vH;\n';
+  var HEAD = 'attribute vec4 a;uniform mat4 uP,uV;uniform float uT,uBeat,uDpr,uS,uSpin;varying float vA,vH;\n';
   var TAIL = function (size, alpha) {
     return '  vec4 v=uV*vec4(p,1.0);gl_Position=uP*v;float zc=max(-v.z,0.1);\n' +
       '  gl_PointSize=' + size + '*uDpr*(9.0/zc)*vis;\n' +
@@ -148,7 +148,7 @@
         data: d,
         eye: function (t, s, mx, my) { return [mx * 1.2, 0.6 - s * 0.5 + my * 0.8, 7.5]; },
         look: function (t, s) { return [0, 0.9 - s * 0.3, 0]; },
-        vs: HEAD + 'void main(){float vis=1.0;float lon=a.y+uT*0.45+uS*6.0;\n' +
+        vs: HEAD + 'void main(){float vis=1.0;float lon=a.y+uT*0.45+uS*6.0+uSpin;\n' +
           '  vec3 n=vec3(cos(a.x)*cos(lon),sin(a.x),cos(a.x)*sin(lon));\n' +
           '  vec3 L1=normalize(vec3(0.6,0.7,0.9)),L2=normalize(vec3(-0.8,0.2,0.6));\n' +
           '  float g=pow(max(dot(n,L1),0.0),10.0)+pow(max(dot(n,L2),0.0),16.0)*0.8;\n' +
@@ -212,24 +212,28 @@
     var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(D.data), gl.STATIC_DRAW);
     var loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 4, gl.FLOAT, false, 0, 0);
-    var U = {}; ['uP', 'uV', 'uT', 'uBeat', 'uDpr', 'uS'].forEach(function (k) { U[k] = gl.getUniformLocation(pr, k); });
+    var U = {}; ['uP', 'uV', 'uT', 'uBeat', 'uDpr', 'uS', 'uSpin'].forEach(function (k) { U[k] = gl.getUniformLocation(pr, k); });
     gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE); gl.disable(gl.DEPTH_TEST);
     var COUNT = D.data.length / 4, dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
     var mx = 0, my = 0, tx = 0, ty = 0, sm = 0, run = true, raf, t0 = performance.now();
+    /* giro extra: cuando cambia el vídeo de la web la bola acelera y luego vuelve a su ritmo */
+    var spin = 0, boost = 0, boostT = 0, last = t0;
+    global.Fondo3DSpin = function (on) { boostT = on ? 1 : 0; if (on && reduce) { gl.uniform1f(U.uSpin, spin += 1.2); requestAnimationFrame(frame); } };
     function size() { canvas.width = Math.round(canvas.clientWidth * dpr); canvas.height = Math.round(canvas.clientHeight * dpr); gl.viewport(0, 0, canvas.width, canvas.height); }
     function move(e) { var p = e.touches ? e.touches[0] : e; tx = (p.clientX / innerWidth - 0.5) * 2; ty = -(p.clientY / innerHeight - 0.5) * 2; }
     addEventListener('resize', size); addEventListener('pointermove', move, { passive: true });
     size();
     function frame(now) {
       if (!run) return;
-      var t = reduce ? 8 : (now - t0) / 1000;
+      var t = reduce ? 8 : (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); last = now;
+      boost += (boostT - boost) * (boostT ? 0.12 : 0.05); spin += dt * boost * 7.0;
       var ph = (t * 124 / 60) % 1, beat = reduce ? 0 : Math.pow(1 - ph, 4);
       var max = document.documentElement.scrollHeight - innerHeight, s = max > 0 ? scrollY / max : 0;
       sm += (s - sm) * 0.08; mx += (tx - mx) * 0.04; my += (ty - my) * 0.04;
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniformMatrix4fv(U.uP, false, persp(small ? 1.15 : 0.95, canvas.width / canvas.height, 0.1, 80));
       gl.uniformMatrix4fv(U.uV, false, lookAt(D.eye(t, sm, mx, my), D.look(t, sm, mx, my)));
-      gl.uniform1f(U.uT, t); gl.uniform1f(U.uBeat, beat); gl.uniform1f(U.uDpr, dpr); gl.uniform1f(U.uS, sm);
+      gl.uniform1f(U.uT, t); gl.uniform1f(U.uBeat, beat); gl.uniform1f(U.uDpr, dpr); gl.uniform1f(U.uS, sm); gl.uniform1f(U.uSpin, spin);
       gl.drawArrays(gl.POINTS, 0, COUNT);
       raf = reduce ? 0 : requestAnimationFrame(frame);
     }

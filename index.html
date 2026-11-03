@@ -159,7 +159,8 @@ div.show::before{display:none}
 
 /* ---------- banda Love House ---------- */
 .lovehouse{position:relative;min-height:100svh;overflow:hidden;display:flex;align-items:flex-end;padding:var(--m)}
-.lovehouse video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.lovehouse video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;transition:opacity .45s var(--ease),transform .6s var(--ease)}
+.lovehouse video.off{opacity:0;transform:scale(1.04)}
 /* ---------- en directo ---------- */
 .live{padding:clamp(96px,12vw,180px) var(--m) 0}
 .live .lead{margin:20px 0 40px;max-width:36ch}
@@ -652,6 +653,7 @@ footer .big .ch{display:inline-block}
 
   <section class="lovehouse" aria-label="Love house">
     <video id="hmVideo" src="videos/lovehouse.mp4?v=3" poster="videos/lovehouse.jpg?v=3" autoplay muted playsinline preload="metadata"></video>
+    <video id="hmVideo2" class="off" muted playsinline preload="none" aria-hidden="true"></video>
     <div class="vdots" role="group" aria-label="Elegir vídeo">
       <button type="button" data-src="videos/lovehouse.mp4?v=3" data-poster="videos/lovehouse.jpg?v=3" aria-pressed="true" aria-label="Vídeo 1"></button>
       <button type="button" data-src="videos/housemusic.mp4?v=1" data-poster="videos/housemusic.jpg?v=1" aria-pressed="false" aria-label="Vídeo 2"></button>
@@ -898,13 +900,15 @@ footer .big .ch{display:inline-block}
   [].slice.call(document.querySelectorAll('.arr')).forEach(function(a){
     a.addEventListener('click',function(){var tr=document.getElementById(a.dataset.target);tr.scrollBy({left:(+a.dataset.dir)*tr.clientWidth*0.8,behavior:'smooth'})});
   });
-  // botón de sonido del vídeo
-  var sb=document.getElementById('soundBtn'), lv=document.querySelector('.lovehouse video');
-  if(sb&&lv){sb.addEventListener('click',function(){
-    lv.muted=!lv.muted; if(!lv.muted){lv.play();}
-    sb.setAttribute('aria-pressed',String(!lv.muted)); sb.querySelector('span').textContent=lv.muted?'Activar sonido':'Silenciar';
+  // botón de sonido del vídeo (vale para el vídeo que esté sonando)
+  var sb=document.getElementById('soundBtn'), lhs=document.querySelector('.lovehouse'), lvMuted=true;
+  function lvCur(){return document.querySelector('.lovehouse video:not(.off)')||document.getElementById('hmVideo')}
+  function sbSet(){sb.setAttribute('aria-pressed',String(!lvMuted)); sb.querySelector('span').textContent=lvMuted?'Activar sonido':'Silenciar';}
+  if(sb&&lhs){sb.addEventListener('click',function(){
+    lvMuted=!lvMuted; document.querySelectorAll('.lovehouse video').forEach(function(v){v.muted=lvMuted}); if(!lvMuted){lvCur().play().catch(function(){});}
+    sbSet();
   });
-  new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting&&!lv.muted){lv.muted=true;sb.setAttribute('aria-pressed','false');sb.querySelector('span').textContent='Activar sonido'}})},{threshold:0}).observe(lv);}
+  new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting&&!lvMuted){lvMuted=true;document.querySelectorAll('.lovehouse video').forEach(function(v){v.muted=true});sbSet()}})},{threshold:0}).observe(lhs);}
 
   // vídeo de la bio: suena solo si lo pides, se para fuera de pantalla
   var bv=document.getElementById('bioVideo'), bs=document.getElementById('bioSound');
@@ -941,12 +945,29 @@ footer .big .ch{display:inline-block}
   }
   mb.forEach(function(b){b.addEventListener('click',function(){playMix(b)})});
 
-  // House music: vídeos seguidos
-  var hv=document.getElementById('hmVideo'), vd=[].slice.call(document.querySelectorAll('.vdots button')), vi=0;
-  function showVid(k){vi=k;var b=vd[k];var m=hv.muted;hv.src=b.dataset.src;hv.poster=b.dataset.poster;hv.muted=m;hv.play().catch(function(){});
-    vd.forEach(function(o,j){o.setAttribute('aria-pressed',String(j===k))});}
-  if(hv){hv.addEventListener('ended',function(){showVid((vi+1)%vd.length)});
-    vd.forEach(function(b,k){b.addEventListener('click',function(){showVid(k)})});}
+  // House music: vídeos seguidos. El siguiente carga por detrás y, mientras cambia, la bola del fondo gira rápido.
+  var hvs=[document.getElementById('hmVideo'),document.getElementById('hmVideo2')], hc=0,
+      vd=[].slice.call(document.querySelectorAll('.vdots button')), vi=0, swapId=0;
+  function showVid(k){
+    if(!hvs[0]||!hvs[1])return;
+    vi=k; var id=++swapId, b=vd[k], cur=hvs[hc], nx=hvs[1-hc], t0=Date.now(), done=false;
+    vd.forEach(function(o,j){o.setAttribute('aria-pressed',String(j===k))});
+    if(window.Fondo3DSpin)window.Fondo3DSpin(true);
+    cur.classList.add('off');
+    nx.muted=lvMuted; nx.poster=''; nx.src=b.dataset.src; nx.load();
+    function reveal(){
+      if(done||id!==swapId)return; done=true;
+      setTimeout(function(){
+        if(id!==swapId)return;
+        cur.pause(); nx.classList.remove('off'); nx.removeAttribute('aria-hidden'); cur.setAttribute('aria-hidden','true'); hc=1-hc;
+        if(window.Fondo3DSpin)window.Fondo3DSpin(false);
+      },Math.max(0,900-(Date.now()-t0)));
+    }
+    nx.addEventListener('playing',reveal,{once:true});
+    nx.play().catch(function(){nx.addEventListener('canplay',reveal,{once:true})});
+  }
+  if(hvs[0]&&hvs[1]){hvs.forEach(function(v){v.addEventListener('ended',function(){if(v===hvs[hc])showVid((vi+1)%vd.length)})});
+    vd.forEach(function(b,k){b.addEventListener('click',function(){if(k!==vi)showVid(k)})});}
 
   // álbum: portada → cuadrícula → foto a pantalla completa
   (function(){
