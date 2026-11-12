@@ -646,12 +646,12 @@ footer .big .ch{display:inline-block}
         <span class="tix">Entradas</span>
         <span class="lineup">Con Bembi b2b Camila Di Rauso, Giulia Mad b2b Ina Housez, Vico Deep y Yhago</span>
       </a>
-      <a class="show rise" data-date="2026-12-20" href="https://www.instagram.com/bonded.club/" target="_blank" rel="noopener">
+      <div class="show rise" data-date="2026-12-20">
         <span class="date">20.12<small>Domingo · 2026</small></span>
         <span class="what">Underwater</span>
         <span class="where">Bonded · C/ Miguel Ángel, 9 · Madrid</span>
-        <span class="tix">Info</span>
-      </a>
+        <span class="tix">Más información pronto</span>
+      </div>
       <a class="show rise" data-date="2026-12-31" href="https://salaelsotano.com" target="_blank" rel="noopener">
         <span class="date">31.12<small>Jueves · 2026</small></span>
         <span class="what">Nochevieja</span>
@@ -854,7 +854,7 @@ footer .big .ch{display:inline-block}
   if(hn&&nextShow){
     var nd=Math.round((next-now)/864e5), cuando=nd===0?'Hoy':nd===1?'Mañana':dias[next.getDay()].charAt(0).toUpperCase()+dias[next.getDay()].slice(1)+' '+next.getDate()+' '+meses[next.getMonth()].slice(0,3);
     var sitio=(nextShow.querySelector('.where').textContent.split('·')[0]||'').trim();
-    hn.innerHTML='<a class="hn-txt" href="#fechas"><span>Próxima: <b>'+cuando+'</b> · '+nextShow.querySelector('.what').textContent+(sitio&&sitio!=='Madrid'?', '+sitio:'')+'</span></a><a class="hn-tix" href="'+nextShow.href+'"'+(nextShow.target?' target="_blank" rel="noopener"':'')+'>'+nextShow.querySelector('.tix').textContent+'</a>';
+    hn.innerHTML='<a class="hn-txt" href="#fechas"><span>Próxima: <b>'+cuando+'</b> · '+nextShow.querySelector('.what').textContent+(sitio&&sitio!=='Madrid'?', '+sitio:'')+'</span></a>'+(nextShow.href?'<a class="hn-tix" href="'+nextShow.href+'"'+(nextShow.target?' target="_blank" rel="noopener"':'')+'>'+nextShow.querySelector('.tix').textContent+'</a>':'');
     hn.hidden=false;
   }
   var out=document.getElementById('next');
